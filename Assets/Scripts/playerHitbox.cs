@@ -29,7 +29,11 @@ public class playerHitbox : MonoBehaviour
             }
             if (other.gameObject.layer == 9 && gameObject.layer == 8)
             {
-                gameObject.GetComponentInParent<player>().reduceLife(1);
+                if(other.gameObject.GetComponent<Projectile>().charged == true)
+                {
+                        gameObject.GetComponentInParent<player>().reduceLife(1);
+                }
+                
                 Destroy(other.gameObject);
             }
             if (other.gameObject.tag == "slow")
