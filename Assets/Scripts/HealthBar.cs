@@ -17,12 +17,6 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void DecreaseHealthbar()
     {
         switch (team)
