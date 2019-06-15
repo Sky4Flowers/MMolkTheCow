@@ -129,26 +129,67 @@ public class player : MonoBehaviour
 
         if (movable)
         {
-            if (amtToMove > 0 && Mathf.Abs(amtToMove) > Mathf.Abs(amtToMove2)) //Das Mathf.Abs könnte evtl für Analog-Sticks wichtig sein
+            if (amtToMove > 0 && amtToMove2 > 0) //Das Mathf.Abs könnte evtl für Analog-Sticks wichtig sein
             {
-                anim.SetInteger("State", 4);
-                lastKey = 4;
+                if (armed == true)
+                {
+                    anim.SetInteger("State", 7);
+                    lastKey = 7;
+                }
+                else
+                {
+                    anim.SetInteger("State", 3);
+                    lastKey = 3;
+                }
+                
+                
             }
 
-            if (amtToMove < 0 && Mathf.Abs(amtToMove) > Mathf.Abs(amtToMove2))
+            if (amtToMove < 0 && amtToMove2 > 0)
             {
-                anim.SetInteger("State", 2);
-                lastKey = 2;
+                if (armed == true)
+                {
+                    anim.SetInteger("State", 6);
+                    lastKey = 6;
+                }
+                else
+                {
+                    anim.SetInteger("State", 2);
+
+                    lastKey = 2;
+                }
+
+
             }
-            if (amtToMove2 < 0 && Mathf.Abs(amtToMove2) > Mathf.Abs(amtToMove))
+            if (amtToMove < 0 && amtToMove2 < 0)
             {
-                anim.SetInteger("State", 1);
-                lastKey = 1;
+                if (armed == true)
+                {
+                    anim.SetInteger("State", 5);
+                    lastKey = 5;
+                }
+                else
+                {
+                    anim.SetInteger("State", 1);
+                    lastKey = 1;
+                }
+                
+                
             }
-            if (amtToMove2 > 0 && Mathf.Abs(amtToMove2) > Mathf.Abs(amtToMove))
+            if (amtToMove > 0 && amtToMove2 > 0)
             {
-                anim.SetInteger("State", 3);
-                lastKey = 3;
+                if(armed == true)
+                {
+                    anim.SetInteger("State", 8);
+                    lastKey = 8;
+                }
+                else
+                {
+                    anim.SetInteger("State", 4);
+                    lastKey = 4;
+                }
+                
+                
             }
 
             //transform.Translate(Vector2.right * amtToMove);
@@ -171,7 +212,7 @@ public class player : MonoBehaviour
             if (Mathf.Abs(Input.GetAxis("HorizontalRight" + controllerID)) + Mathf.Abs(Input.GetAxis("VerticalRight" + controllerID)) >= 0.1f)
             {
                 itemPosition = new Vector3(Input.GetAxis("HorizontalRight" + controllerID), Input.GetAxis("VerticalRight" + controllerID), 0.0f);
-                itemPosition = Vector3.Normalize(itemPosition) * 4;
+                itemPosition = Vector3.Normalize(itemPosition) * 2;
                 weapon.transform.position = transform.position + itemPosition;
                 shield.transform.position = transform.position + itemPosition;
             }
@@ -181,7 +222,7 @@ public class player : MonoBehaviour
             if (Mathf.Abs(InputManager.Instance.getRightStick(playerID).x) + Mathf.Abs(InputManager.Instance.getRightStick(playerID).y) >= 0.1f)
             {
                 itemPosition = new Vector3(InputManager.Instance.getRightStick(playerID).x, InputManager.Instance.getRightStick(playerID).y, 0.0f);
-                itemPosition = Vector3.Normalize(itemPosition) * 4;
+                itemPosition = Vector3.Normalize(itemPosition) * 2;
                 weapon.transform.position = transform.position + itemPosition;
                 shield.transform.position = transform.position + itemPosition;
             }
