@@ -312,7 +312,6 @@ MonoBehaviour:
   playerSpeed: 12
   playerID: 0
   teamNumber: 1
-  anim: {fileID: 0}
   weapon: {fileID: 27542441}
   shield: {fileID: 1625833898}
   bullet: {fileID: 8516266615218893636, guid: 78d936a5139af49489f9cf94edc033fa, type: 3}
@@ -357,7 +356,7 @@ Animator:
   m_GameObject: {fileID: 180112463}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fc32db6dc5d177c40a32d78c926d164d, type: 2}
+  m_Controller: {fileID: 9100000, guid: cc1ea6170346c334caf54e9647ffc1d6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -666,7 +665,7 @@ Animator:
   m_GameObject: {fileID: 842343392}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fc32db6dc5d177c40a32d78c926d164d, type: 2}
+  m_Controller: {fileID: 9100000, guid: cc1ea6170346c334caf54e9647ffc1d6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -690,7 +689,6 @@ MonoBehaviour:
   playerSpeed: 12
   playerID: 1
   teamNumber: 2
-  anim: {fileID: 0}
   weapon: {fileID: 2031248076}
   shield: {fileID: 699827926}
   bullet: {fileID: 8516266615218893636, guid: 78d936a5139af49489f9cf94edc033fa, type: 3}

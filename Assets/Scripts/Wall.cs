@@ -21,7 +21,7 @@ public class Wall : MonoBehaviour
         Debug.Log("wall");
         if (other.gameObject.tag != "shield" && other.gameObject.tag != "Player")
         {
-            Debug.Log("wall");
+            Debug.Log("wall2");
 
             if (other.gameObject.tag == "ProjectileStandard")
             {

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8516266615218893633}
   m_Layer: 0
   m_Name: DummyProjectile
-  m_TagString: Untagged
+  m_TagString: standard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,4 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0b6eff292f254fa9d50d05c09f7cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charged: 0
+  bounce: 0
+  team: 0
   direction: {x: 0, y: 0, z: 0}
