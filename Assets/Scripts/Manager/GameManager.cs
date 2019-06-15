@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
     private bool isWaitingToZoom = false;
     private bool shouldZoomIn = false;
 
+    private GameObject[] players = new GameObject[4];
+
     void Start()
     {
         if (!instance)
@@ -176,7 +178,12 @@ public class GameManager : MonoBehaviour
 
     public static void startGame()
     {
-        //TODO
+        SpawnBehaviour.spawnPlayers(instance.players.Length);
+    }
+
+    public static GameObject getPlayerById(int playerId)
+    {
+        return instance.players[playerId];
     }
 
     public static void finishGame()
@@ -184,6 +191,11 @@ public class GameManager : MonoBehaviour
         //TODO
         //Get Playerstats
         //calculate best badgestats
+    }
+
+    public static void goBackToMain()
+    {
+        //TODO
     }
 
     //---------------------------------------------------------------------------------------------------------------------
