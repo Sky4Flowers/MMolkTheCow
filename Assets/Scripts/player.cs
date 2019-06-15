@@ -17,6 +17,12 @@ public class player : MonoBehaviour
     int controllerID;
     bool armed;
     public GameObject bullet;
+    public GameObject specialBullet;
+    bool onCooldown;
+    bool onCooldown2;
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +64,7 @@ public class player : MonoBehaviour
     void Update()
     {
         //Change Item
-        if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder))
+        if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder))
         {
             if (weapon.activeSelf)
             {
@@ -86,11 +92,11 @@ public class player : MonoBehaviour
         {
             amtToMove = Input.GetAxis("Horizontal" + controllerID) * playerSpeed * 100 * Time.deltaTime;
             amtToMove2 = Input.GetAxis("Vertical" + controllerID) * playerSpeed * 100 * Time.deltaTime;
-            Debug.Log("0: " + Input.GetAxis("Horizontal"));
+            /*Debug.Log("0: " + Input.GetAxis("Horizontal"));
             Debug.Log("1: " + Input.GetAxis("Horizontal1"));
             Debug.Log("2: " + Input.GetAxis("Horizontal2"));
             Debug.Log("3: " + Input.GetAxis("Horizontal3"));
-            Debug.Log("4: " + Input.GetAxis("Horizontal4"));
+            Debug.Log("4: " + Input.GetAxis("Horizontal4"));*/
         }
         else
         {
@@ -145,18 +151,30 @@ public class player : MonoBehaviour
         if (Mathf.Abs(InputManager.Instance.getRightStick(playerID).x) + Mathf.Abs(InputManager.Instance.getRightStick(playerID).y) >= 0.1f)
         {
             itemPosition = new Vector3(InputManager.Instance.getRightStick(playerID).x, InputManager.Instance.getRightStick(playerID).y, 0.0f);
-            itemPosition = Vector3.Normalize(itemPosition);
+            itemPosition = Vector3.Normalize(itemPosition) * 4;
             weapon.transform.position = transform.position + itemPosition;
             shield.transform.position = transform.position + itemPosition;
+            
         }
 
-        if (armed)//Überprüfung ob Waffe ausgerüstet ist und geschossen werden kann
+        if (armed && onCooldown == false)//Überprüfung ob Waffe ausgerüstet ist und geschossen werden kann
         {
-            if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder))
+            if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder))
             {
                 GameObject projectile = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
                 projectile.layer = gameObject.layer;
                 projectile.GetComponent<Projectile>().SetDirection(itemPosition);
+                onCooldown = true;
+                StartCoroutine(Cooldown());
+            }
+            if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && onCooldown2 == false)
+            {
+                GameObject projectile = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
+                projectile.layer = gameObject.layer;
+                projectile.GetComponent<Projectile>().SetDirection(itemPosition);
+                onCooldown = true;
+                StartCoroutine(Cooldown());
+                StartCoroutine(SpecialCooldown());
             }
         }
 
@@ -236,6 +254,12 @@ public class player : MonoBehaviour
         }
         rb.velocity = Vector3.zero;
 
+        if(armed == false)
+        {
+            shield.gameObject.transform.LookAt(gameObject.transform, new Vector3(1,0,0));
+        }
+
+
     }
 
     public void setMovable(bool set)
@@ -256,5 +280,25 @@ public class player : MonoBehaviour
     public void setPlayPos(Vector3 newpos)
     {
         transform.position = newpos;
+    }
+
+    
+
+    public void reduceLife(int team)
+    {
+        //to do
+        Debug.Log(team);
+    }
+
+    IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(1f);
+        onCooldown = false;
+    }
+
+    IEnumerator SpecialCooldown()
+    {
+        yield return new WaitForSeconds(10f);
+        onCooldown2 = false;
     }
 }

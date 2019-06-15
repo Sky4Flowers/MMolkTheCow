@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interesting
+  - shield
+  - standard
+  - special
   layers:
   - Default
   - TransparentFX
