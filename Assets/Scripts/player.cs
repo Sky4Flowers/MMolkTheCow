@@ -431,9 +431,9 @@ public class player : MonoBehaviour
     }
 
    public void reduceLife(int team)
-    {
+   {
 
-    }
+   }
 
     IEnumerator Cooldown()
     {
