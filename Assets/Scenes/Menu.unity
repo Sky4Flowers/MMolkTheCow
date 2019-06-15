@@ -190,7 +190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'PLAYER #4: MORITZ'
+  m_Text: 'PLAYER #4: DAIN'
 --- !u!222 &52967027
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -385,7 +385,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'PLAYER #2: OLIVER'
+  m_Text: 'PLAYER #2: BRAX'
 --- !u!222 &346106362
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -787,7 +787,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'PLAYER #1: KONSTI'
+  m_Text: 'PLAYER #1: ARIS'
 --- !u!222 &781155281
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1101,7 +1101,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'PLAYER #3: MAX'
+  m_Text: 'PLAYER #3: COUP'
 --- !u!222 &1548776036
 CanvasRenderer:
   m_ObjectHideFlags: 0
