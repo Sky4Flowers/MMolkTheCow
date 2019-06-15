@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     private int teamHealth2 = 20;
 
     private CamBehaviour mainCam;
+    private bool hasMainCam = true;
     private float camSize = 10;
     private int camMaxSize = 20;
     private int camMinSize = 10;
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
             mainCam = Camera.main.GetComponent<CamBehaviour>();
             if (!mainCam)
             {
+                hasMainCam = false;
                 Debug.LogError("No moveable mainCamera found. Please add camera with CamBehaviour as main");
             }
         }
@@ -87,7 +89,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (mainCam.shouldLookAtInterest())
+        if (hasMainCam && mainCam.shouldLookAtInterest())
         {
             shouldZoomIn = false;
             if (camSize < camMaxSize)
