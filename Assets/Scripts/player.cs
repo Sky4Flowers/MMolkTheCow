@@ -20,6 +20,7 @@ public class player : MonoBehaviour
     public GameObject specialBullet;
     bool onCooldown;
     bool onCooldown2;
+    public GameObject slowAnim;
 
     // Start is called before the first frame update
     void Start()
@@ -424,12 +425,14 @@ public class player : MonoBehaviour
     public void setSlow()
     {
         playerSpeed = 6;
+        slowAnim.SetActive(true);
         StartCoroutine(Slow());
     }
 
     public void revertSlow()
     {
         playerSpeed = 12;
+        slowAnim.SetActive(false);
     }
 
    //TODO: DAMAGE ?
