@@ -22,7 +22,7 @@ public class Wall : MonoBehaviour
     {
         if (other.gameObject.tag.Contains("Projectile"))
         {
-            Debug.Log("wall");
+            Debug.Log("wall2");
 
             if (other.gameObject.tag == "ProjectileStandard")
             {

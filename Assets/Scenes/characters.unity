@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 27542441}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 25.911102, y: -8.12738, z: -11.535027}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 180112465}
   m_RootOrder: 1
@@ -269,7 +269,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a2c27be9e05d2444c84b200e7c859856, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd42b874907e8c244b4059d132cfe938, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -289,7 +289,7 @@ Transform:
   m_GameObject: {fileID: 180112463}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1625833899}
   - {fileID: 27542442}
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b97a60635f917494c8e21bc6005e3c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 10
+  playerSpeed: 12
   playerID: 0
   teamNumber: 1
   weapon: {fileID: 27542441}
@@ -356,7 +356,7 @@ Animator:
   m_GameObject: {fileID: 180112463}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cc1ea6170346c334caf54e9647ffc1d6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -604,6 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172fc13632d2b464784192c7bbe69c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
 --- !u!1 &842343392
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,7 +665,7 @@ Animator:
   m_GameObject: {fileID: 842343392}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cc1ea6170346c334caf54e9647ffc1d6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -685,13 +686,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b97a60635f917494c8e21bc6005e3c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 10
+  playerSpeed: 12
   playerID: 1
   teamNumber: 2
   weapon: {fileID: 2031248076}
   shield: {fileID: 699827926}
   bullet: {fileID: 8516266615218893636, guid: 78d936a5139af49489f9cf94edc033fa, type: 3}
-  specialBullet: {fileID: 0}
+  specialBullet: {fileID: 8516266615218893636, guid: 7bec3e7525bb6aa449bea29637ac3201,
+    type: 3}
 --- !u!212 &842343397
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -803,6 +805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44746a4d693b523469a8eab167176835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
 --- !u!65 &904726790
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -965,6 +968,98 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44746a4d693b523469a8eab167176835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
+--- !u!1 &1549010538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1549010542}
+  - component: {fileID: 1549010541}
+  - component: {fileID: 1549010540}
+  - component: {fileID: 1549010539}
+  m_Layer: 0
+  m_Name: SlowItem
+  m_TagString: slow
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &1549010539
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549010538}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1549010540
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549010538}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1549010541
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549010538}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1549010542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549010538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.510787, y: 0.09557915, z: 0.5929637}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1625833898
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,7 +1089,7 @@ Transform:
   m_GameObject: {fileID: 1625833898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 25.911102, y: -8.12738, z: -11.535027}
-  m_LocalScale: {x: 2, y: 6, z: 2}
+  m_LocalScale: {x: 1, y: 2, z: 0.3}
   m_Children: []
   m_Father: {fileID: 180112465}
   m_RootOrder: 0
@@ -1069,6 +1164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172fc13632d2b464784192c7bbe69c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
 --- !u!1 &1942847357
 GameObject:
   m_ObjectHideFlags: 0

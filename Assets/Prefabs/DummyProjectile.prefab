@@ -108,3 +108,4 @@ MonoBehaviour:
   charged: 0
   bounce: 0
   sourceId: 0
+  direction: {x: 0, y: 0, z: 0}

@@ -21,9 +21,12 @@ public class player : MonoBehaviour
     bool onCooldown;
     bool onCooldown2;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         movable = true;
         rb = GetComponent<Rigidbody>();
         itemPosition = new Vector3(1.0f, 0.0f, 0.0f);
@@ -104,26 +107,31 @@ public class player : MonoBehaviour
 
         if (movable)
         {
-            if (amtToMove > 0 && Mathf.Abs(amtToMove) > Mathf.Abs(amtToMove2)) //Das Mathf.Abs könnte evtl für Analog-Sticks wichtig sein
+            if (amtToMove > 0 && amtToMove2 < 0) //Das Mathf.Abs könnte evtl für Analog-Sticks wichtig sein
             {
-                //anim.SetInteger("State", 4);
+                
+                anim.SetInteger("State", 4);
                 lastKey = 4;
+
             }
 
-            if (amtToMove < 0 && Mathf.Abs(amtToMove) > Mathf.Abs(amtToMove2))
+            if (amtToMove < 0 && amtToMove2 > 0)
             {
-                //anim.SetInteger("State", 2);
+                anim.SetInteger("State", 2);
                 lastKey = 2;
+
             }
-            if (amtToMove2 < 0 && Mathf.Abs(amtToMove2) > Mathf.Abs(amtToMove))
+            if (amtToMove2 < 0 && amtToMove2 < 0)
             {
-                //anim.SetInteger("State", 1);
+                anim.SetInteger("State", 1);
                 lastKey = 1;
+
             }
-            if (amtToMove2 > 0 && Mathf.Abs(amtToMove2) > Mathf.Abs(amtToMove))
+            if (amtToMove2 > 0 && amtToMove > 0)
             {
-                //anim.SetInteger("State", 3);
+                anim.SetInteger("State", 3);
                 lastKey = 3;
+
             }
 
             //transform.Translate(Vector2.right * amtToMove);
@@ -139,14 +147,16 @@ public class player : MonoBehaviour
             {*/
                 rb.MovePosition(rb.position + movement);
             //}
+
         }
         //Positionieren des Items, abhängig von der Ausrichtung des rechten Sticks
         if (Mathf.Abs(InputManager.Instance.getRightStick(playerID).x) + Mathf.Abs(InputManager.Instance.getRightStick(playerID).y) >= 0.1f)
         {
             itemPosition = new Vector3(InputManager.Instance.getRightStick(playerID).x, InputManager.Instance.getRightStick(playerID).y, 0.0f);
-            itemPosition = Vector3.Normalize(itemPosition) * 4;
+            itemPosition = Vector3.Normalize(itemPosition) * 2;
             weapon.transform.position = transform.position + itemPosition;
             shield.transform.position = transform.position + itemPosition;
+            
         }
 
         if (armed && onCooldown == false)//Überprüfung ob Waffe ausgerüstet ist und geschossen werden kann
@@ -176,8 +186,9 @@ public class player : MonoBehaviour
 
         if (amtToMove == 0 && amtToMove2 == 0)
         {
-            //anim.SetInteger("State", -1 * lastKey);
+            anim.SetInteger("State", -1 * lastKey);
         }
+
         if (movable)
         {
           /*  if (Input.GetKeyDown(KeyCode.E)) //Überprüft auf Objekte mit denen Interagiert werden kann
@@ -225,20 +236,27 @@ public class player : MonoBehaviour
                     if (hit.collider.gameObject.tag == "World")
                     {
                         hit.collider.gameObject.GetComponent<Interaction>().Action(this.gameObject);
+
                     }
+
                 }
+
                 if (Physics.Raycast(transform.position, raydirect, out hit, 1.7f))
                 {
                     if (hit.collider.gameObject.tag == "Dead" && alive == false)
                     {
                         hit.collider.gameObject.GetComponent<Interaction>().Action(this.gameObject);
+
                     }
+
                 }
+
             }
             if (Input.GetKeyDown(KeyCode.T) )
             {
                 
             }*/
+			
         }
         rb.velocity = Vector3.zero;
 
@@ -246,6 +264,8 @@ public class player : MonoBehaviour
         {
             shield.gameObject.transform.LookAt(gameObject.transform, new Vector3(1,0,0));
         }
+
+
     }
 
     public void setMovable(bool set)
@@ -268,10 +288,42 @@ public class player : MonoBehaviour
         transform.position = newpos;
     }
 
+    
+
     public void reduceLife(int team)
     {
         //to do
         Debug.Log(team);
+    }
+
+    public void slowEnemies()
+    {
+        if(teamNumber == 1)
+        {
+            /*GameObject.Find("player3").gameObject.GetComponent<player>().getSlowed();
+             *GameObject.Find("player4").gameObject.GetComponent<player>().getSlowed();*/
+        }
+        else
+        {
+            /*GameObject.Find("player1").gameObject.GetComponent<player>().getSlowed();
+             *GameObject.Find("player2").gameObject.GetComponent<player>().getSlowed();*/
+        }
+    }
+
+    public void getSlowed()
+    {
+        playerSpeed = 7;
+    }
+
+    public void endSlow()
+    {
+        playerSpeed = 12;
+    }
+
+    IEnumerator Slow()
+    {
+        yield return new WaitForSeconds(5f);
+        endSlow();
     }
 
     IEnumerator Cooldown()
@@ -285,4 +337,5 @@ public class player : MonoBehaviour
         yield return new WaitForSeconds(10f);
         onCooldown2 = false;
     }
+
 }
