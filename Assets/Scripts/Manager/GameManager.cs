@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
     private PlayerStat bestAccuracy = new PlayerStat();
     private PlayerStat mostHealthDrain = new PlayerStat();
     private PlayerStat mostHealthLeft = new PlayerStat();
+    private int teamHealth1;
+    private int teamHealth2;
 
     private CamBehaviour mainCam;
     private float camSize = 10;
@@ -103,6 +105,11 @@ public class GameManager : MonoBehaviour
                 isWaitingToZoom = true;
                 StartCoroutine(ZoomIn());
             }
+        }
+
+        if(teamHealth1 <= 0 || teamHealth2 <= 0)
+        {
+            finishGame();
         }
     }
 
@@ -180,6 +187,8 @@ public class GameManager : MonoBehaviour
     public static void startGame()
     {
         //SpawnBehaviour.spawnPlayers(instance.players.Length);
+        instance.teamHealth1 = 20;
+        instance.teamHealth2 = 20;
         SceneManager.LoadScene(1);
     }
 
