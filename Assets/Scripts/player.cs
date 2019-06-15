@@ -324,11 +324,7 @@ public class player : MonoBehaviour
         playerSpeed = 12;
     }
 
-    public void reduceLife(int team)
-    {
-        //to do
-        Debug.Log(team);
-    }
+   
 
     IEnumerator Cooldown()
     {
@@ -342,4 +338,9 @@ public class player : MonoBehaviour
         onCooldown2 = false;
     }
 
+    IEnumerator Slow()
+    {
+        yield return new WaitForSeconds(7f);
+        revertSlow();
+    }
 }

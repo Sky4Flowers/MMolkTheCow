@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 12
-  playerID: 1
+  playerID: 0
   teamNumber: 1
   weapon: {fileID: 27542441}
   shield: {fileID: 1625833898}
