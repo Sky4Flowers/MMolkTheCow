@@ -30,11 +30,11 @@ public class PlayerScore
 
         if (playerId == 1 || playerId == 2)
         {
-            color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f);
+            color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f);
         }
         else
         {
-            color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f);
+            color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f);
         }
         playerScore.color = color;
         playerScoreValue.color = color;
