@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -178,7 +179,8 @@ public class GameManager : MonoBehaviour
 
     public static void startGame()
     {
-        SpawnBehaviour.spawnPlayers(instance.players.Length);
+        //SpawnBehaviour.spawnPlayers(instance.players.Length);
+        SceneManager.LoadScene(1);
     }
 
     public static GameObject getPlayerById(int playerId)
@@ -191,11 +193,12 @@ public class GameManager : MonoBehaviour
         //TODO
         //Get Playerstats
         //calculate best badgestats
+        SceneManager.LoadScene(2);
     }
 
     public static void goBackToMain()
     {
-        //TODO
+        SceneManager.LoadScene(0);
     }
 
     //---------------------------------------------------------------------------------------------------------------------
