@@ -193,17 +193,21 @@ public class player : MonoBehaviour
             {
                 if (Input.GetButtonDown("Fire" + controllerID) && !Input.GetButtonDown("Change" + controllerID))
                 {
-                    GameObject projectile = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
-                    projectile.layer = gameObject.layer;
-                    projectile.GetComponent<Projectile>().SetDirection(itemPosition);
+                    GameObject obj = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
+                    obj.layer = gameObject.layer;
+                    Projectile projectile = obj.GetComponent<Projectile>();
+                    projectile.setDirection(itemPosition);
+                    projectile.sourceId = playerID;
                     onCooldown = true;
                     StartCoroutine(Cooldown());
                 }
                 if (Input.GetButtonDown("Fire" + controllerID) && Input.GetButtonDown("Change" + controllerID) && onCooldown2 == false)
                 {
-                    GameObject projectile = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
-                    projectile.layer = gameObject.layer;
-                    projectile.GetComponent<Projectile>().SetDirection(itemPosition);
+                    GameObject obj = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
+                    obj.layer = gameObject.layer;
+                    Projectile projectile = obj.GetComponent<Projectile>();
+                    projectile.setDirection(itemPosition);
+                    projectile.sourceId = playerID;
                     onCooldown = true;
                     StartCoroutine(Cooldown());
                     StartCoroutine(SpecialCooldown());
@@ -213,17 +217,21 @@ public class player : MonoBehaviour
             {
                 if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder))
                 {
-                    GameObject projectile = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
-                    projectile.layer = gameObject.layer;
-                    projectile.GetComponent<Projectile>().SetDirection(itemPosition);
+                    GameObject obj = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
+                    obj.layer = gameObject.layer;
+                    Projectile projectile = obj.GetComponent<Projectile>();
+                    projectile.setDirection(itemPosition);
+                    projectile.sourceId = playerID;
                     onCooldown = true;
                     StartCoroutine(Cooldown());
                 }
                 if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && onCooldown2 == false)
                 {
-                    GameObject projectile = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
-                    projectile.layer = gameObject.layer;
-                    projectile.GetComponent<Projectile>().SetDirection(itemPosition);
+                    GameObject obj = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
+                    obj.layer = gameObject.layer;
+                    Projectile projectile = obj.GetComponent<Projectile>();
+                    projectile.setDirection(itemPosition);
+                    projectile.sourceId = playerID;
                     onCooldown = true;
                     StartCoroutine(Cooldown());
                     StartCoroutine(SpecialCooldown());
@@ -351,7 +359,10 @@ public class player : MonoBehaviour
         playerSpeed = 12;
     }
 
-   
+   public void reduceLife(int team)
+    {
+
+    }
 
     IEnumerator Cooldown()
     {
