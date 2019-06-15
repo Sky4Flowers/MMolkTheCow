@@ -51,8 +51,8 @@ public class GameManager : MonoBehaviour
     private PlayerStat bestAccuracy = new PlayerStat();
     private PlayerStat mostHealthDrain = new PlayerStat();
     private PlayerStat mostHealthLeft = new PlayerStat();
-    private int teamHealth1;
-    private int teamHealth2;
+    private int teamHealth1 = 20;
+    private int teamHealth2 = 20;
 
     private CamBehaviour mainCam;
     private float camSize = 10;
@@ -190,6 +190,10 @@ public class GameManager : MonoBehaviour
         instance.teamHealth1 = 20;
         instance.teamHealth2 = 20;
         SceneManager.LoadScene(1);
+        foreach(HealthBar g in Resources.FindObjectsOfTypeAll(typeof(HealthBar)) as HealthBar[])
+        {
+            g.enabled = true;
+        }
     }
 
     public static GameObject getPlayerById(int playerId)
@@ -197,7 +201,7 @@ public class GameManager : MonoBehaviour
         return instance.players[playerId];
     }
 
-    public static int[] getTeamHeaths()
+    public static int[] getTeamHealths()
     {
         int[] hps = new int[2];
         hps[0] = instance.teamHealth1;

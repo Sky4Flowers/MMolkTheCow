@@ -7,13 +7,13 @@ public class HealthBar : MonoBehaviour
     private int health;
     private int startHealth;
     public int team;
-    // Start is called before the first frame update
-    void Start()
+
+    void OnEnable()
     {
         switch (team)
         {
-            case 1: startHealth = GameManager.getTeamHeaths()[0]; break;
-            case 2: startHealth = GameManager.getTeamHeaths()[1]; break;
+            case 1: startHealth = GameManager.getTeamHealths()[0]; break;
+            case 2: startHealth = GameManager.getTeamHealths()[1]; break;
         }
     }
 
@@ -21,8 +21,8 @@ public class HealthBar : MonoBehaviour
     {
         switch (team)
         {
-            case 1: health = GameManager.getTeamHeaths()[0]; break;
-            case 2: health = GameManager.getTeamHeaths()[1]; break;
+            case 1: health = GameManager.getTeamHealths()[0]; break;
+            case 2: health = GameManager.getTeamHealths()[1]; break;
         }
         Resize();
     }

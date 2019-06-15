@@ -46,7 +46,7 @@ public class PlayerScore
         string name = "";
         switch (playerId)
         {
-            case 1: name = "LORENA"; break;
+            case 1: name = "KONSTI"; break;
             case 2: name = "OLIVER"; break;
             case 3: name = "MAX"; break;
             case 4: name = "MORITZ"; break;
