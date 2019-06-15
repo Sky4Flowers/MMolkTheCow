@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class shield : MonoBehaviour
 {
-    private Collider collider;
+    private new Collider collider;
     public int team;
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class shield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Something
     }
 
     void OnTriggerEnter(Collider other)
@@ -29,14 +29,12 @@ public class shield : MonoBehaviour
             }
             else if (other.gameObject.layer == 8 && gameObject.layer == 9)
             {
-                Debug.Log("reflect1");
                 other.GetComponent<Projectile>().onCollisionWith(collider);
                 other.gameObject.layer = 9;
                 other.gameObject.GetComponent<Projectile>().charged = true;
             }
             else if (other.gameObject.layer == 9 && gameObject.layer == 8)
             {
-                Debug.Log("reflect2");
                 other.GetComponent<Projectile>().onCollisionWith(collider);
                 other.gameObject.layer = 8;
                 other.gameObject.GetComponent<Projectile>().charged = true;

@@ -22,18 +22,14 @@ public class Wall : MonoBehaviour
     {
         if (other.gameObject.tag.Contains("Projectile"))
         {
-            Debug.Log("wall2" + other.gameObject.CompareTag("ProjectileStandard") + " " + other.gameObject.CompareTag("ProjectileSpecial"));
-
             if (other.gameObject.CompareTag("ProjectileStandard"))
             {
-                Debug.Log("Destroying");
                 Destroy(other.gameObject);
             }
             else if (other.gameObject.CompareTag("ProjectileSpecial"))
             {
                 if (other.gameObject.GetComponent<Projectile>().bounce < 3)
                 {
-                    Debug.Log("Bounce");
                     other.gameObject.GetComponent<Projectile>().bounce++;
                     other.GetComponent<Projectile>().onCollisionWith(collider);
                 }

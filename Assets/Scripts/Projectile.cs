@@ -38,9 +38,7 @@ public class Projectile : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, direction, out hit, 1) && hit.collider.Equals(other))
         {
-            Debug.Log("Colision! " + direction);
             direction = Vector3.Reflect(direction, hit.normal);
-            Debug.Log("Bounce " + direction);
         }
     }
 }
