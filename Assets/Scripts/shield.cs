@@ -20,24 +20,29 @@ public class shield : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("prepre");
         if (other.gameObject.tag.Contains("Projectile"))
         {
-            if (other.gameObject.layer == gameObject.layer)
+            Debug.Log("pre");
+            if ((other.gameObject.layer == 10 && gameObject.layer == 12) || (other.gameObject.layer == 11 && gameObject.layer == 13))
             {
                 other.GetComponent<Projectile>().onCollisionWith(collider);
                 other.gameObject.GetComponent<Projectile>().charged = true;
+                Debug.Log("10, 12");
             }
-            else if (other.gameObject.layer == 8 && gameObject.layer == 9)
+            else if (other.gameObject.layer == 10 && gameObject.layer == 13)
             {
                 other.GetComponent<Projectile>().onCollisionWith(collider);
-                other.gameObject.layer = 9;
+                other.gameObject.layer = 11;
                 other.gameObject.GetComponent<Projectile>().charged = true;
+                Debug.Log("10, 13");
             }
-            else if (other.gameObject.layer == 9 && gameObject.layer == 8)
+            else if (other.gameObject.layer == 11 && gameObject.layer == 12)
             {
                 other.GetComponent<Projectile>().onCollisionWith(collider);
-                other.gameObject.layer = 8;
+                other.gameObject.layer = 10;
                 other.gameObject.GetComponent<Projectile>().charged = true;
+                Debug.Log("11, 12");
             }
         }
     }

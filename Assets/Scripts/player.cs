@@ -235,7 +235,14 @@ public class player : MonoBehaviour
                 if (Input.GetButtonDown("Fire" + controllerID) && !Input.GetButtonDown("Change" + controllerID))
                 {
                     GameObject obj = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
-                    obj.layer = gameObject.layer;
+                    if (teamNumber == 1)
+                    {
+                        obj.layer = 10;
+                    }
+                    else if (teamNumber == 2)
+                    {
+                        obj.layer = 11;
+                    }
                     Projectile projectile = obj.GetComponent<Projectile>();
                     projectile.setDirection(itemPosition);
                     projectile.sourceId = playerID;
@@ -245,7 +252,14 @@ public class player : MonoBehaviour
                 if (Input.GetButtonDown("Fire" + controllerID) && Input.GetButtonDown("Change" + controllerID) && onCooldown2 == false)
                 {
                     GameObject obj = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
-                    obj.layer = gameObject.layer;
+                    if (teamNumber == 1)
+                    {
+                        obj.layer = 10;
+                    }
+                    else if (teamNumber == 2)
+                    {
+                        obj.layer = 11;
+                    }
                     Projectile projectile = obj.GetComponent<Projectile>();
                     projectile.setDirection(itemPosition);
                     projectile.sourceId = playerID;
@@ -259,7 +273,16 @@ public class player : MonoBehaviour
                 if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder))
                 {
                     GameObject obj = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
-                    obj.layer = gameObject.layer;
+                    if(teamNumber == 1)
+                    {
+                        obj.layer = 10;
+                        Debug.Log("Test 1");
+                    }
+                    else if(teamNumber == 2)
+                    {
+                        obj.layer = 11;
+                        Debug.Log("Test 2");
+                    }
                     Projectile projectile = obj.GetComponent<Projectile>();
                     projectile.setDirection(itemPosition);
                     projectile.sourceId = playerID;
@@ -269,7 +292,14 @@ public class player : MonoBehaviour
                 if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && onCooldown2 == false)
                 {
                     GameObject obj = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
-                    obj.layer = gameObject.layer;
+                    if (teamNumber == 1)
+                    {
+                        obj.layer = 10;
+                    }
+                    else if (teamNumber == 2)
+                    {
+                        obj.layer = 11;
+                    }
                     Projectile projectile = obj.GetComponent<Projectile>();
                     projectile.setDirection(itemPosition);
                     projectile.sourceId = playerID;
