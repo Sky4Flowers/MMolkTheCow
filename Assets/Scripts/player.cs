@@ -212,7 +212,7 @@ public class player : MonoBehaviour
             if (Mathf.Abs(Input.GetAxis("HorizontalRight" + controllerID)) + Mathf.Abs(Input.GetAxis("VerticalRight" + controllerID)) >= 0.1f)
             {
                 itemPosition = new Vector3(Input.GetAxis("HorizontalRight" + controllerID), Input.GetAxis("VerticalRight" + controllerID), 0.0f);
-                itemPosition = Vector3.Normalize(itemPosition) * 2;
+                itemPosition = Vector3.Normalize(itemPosition) * 1;
                 weapon.transform.position = transform.position + itemPosition;
                 shield.transform.position = transform.position + itemPosition;
             }
@@ -222,7 +222,7 @@ public class player : MonoBehaviour
             if (Mathf.Abs(InputManager.Instance.getRightStick(playerID).x) + Mathf.Abs(InputManager.Instance.getRightStick(playerID).y) >= 0.1f)
             {
                 itemPosition = new Vector3(InputManager.Instance.getRightStick(playerID).x, InputManager.Instance.getRightStick(playerID).y, 0.0f);
-                itemPosition = Vector3.Normalize(itemPosition) * 2;
+                itemPosition = Vector3.Normalize(itemPosition) * 1;
                 weapon.transform.position = transform.position + itemPosition;
                 shield.transform.position = transform.position + itemPosition;
             }
@@ -264,6 +264,7 @@ public class player : MonoBehaviour
                     projectile.setDirection(itemPosition);
                     projectile.sourceId = playerID;
                     onCooldown = true;
+                    onCooldown2 = true;
                     StartCoroutine(Cooldown());
                     StartCoroutine(SpecialCooldown());
                 }
@@ -304,6 +305,7 @@ public class player : MonoBehaviour
                     projectile.setDirection(itemPosition);
                     projectile.sourceId = playerID;
                     onCooldown = true;
+                    onCooldown2 = true;
                     StartCoroutine(Cooldown());
                     StartCoroutine(SpecialCooldown());
                 }
@@ -409,20 +411,20 @@ public class player : MonoBehaviour
     {
         if (teamNumber == 1)
         {
-            /*GameObject.Find("player3").gameObject.GetComponent<player>().setSlow();
-            GameObject.Find("player4").gameObject.GetComponent<player>().setSlow();*/
-            GameObject.Find("player2").gameObject.GetComponent<player>().setSlow();
+            GameObject.Find("player3").gameObject.GetComponent<player>().setSlow();
+            GameObject.Find("player4").gameObject.GetComponent<player>().setSlow();
         }
         else
         {
-            /*GameObject.Find("player1").gameObject.GetComponent<player>().setSlow();
-            GameObject.Find("player2").gameObject.GetComponent<player>().setSlow();*/
+            GameObject.Find("player1").gameObject.GetComponent<player>().setSlow();
+            GameObject.Find("player2").gameObject.GetComponent<player>().setSlow();
         }
     }
 
     public void setSlow()
     {
         playerSpeed = 6;
+        StartCoroutine(Slow());
     }
 
     public void revertSlow()

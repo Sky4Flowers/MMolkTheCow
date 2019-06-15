@@ -22,12 +22,16 @@ public class playerHitbox : MonoBehaviour
         if (other.gameObject.tag != "shield" && other.gameObject.tag != "Player")
         {
             Debug.Log("hit");
-            if (other.gameObject.layer == 8 && gameObject.layer == 9)
+            if (other.gameObject.layer == 10 && gameObject.layer == 9)
             {
-                gameObject.GetComponentInParent<player>().reduceLife(2);
+                if (other.gameObject.GetComponent<Projectile>().charged == true)
+                {
+                    gameObject.GetComponentInParent<player>().reduceLife(2);
+                }
+
                 Destroy(other.gameObject);
             }
-            if (other.gameObject.layer == 9 && gameObject.layer == 8)
+            if (other.gameObject.layer == 11 && gameObject.layer == 8)
             {
                 if(other.gameObject.GetComponent<Projectile>().charged == true)
                 {
@@ -36,10 +40,20 @@ public class playerHitbox : MonoBehaviour
                 
                 Destroy(other.gameObject);
             }
-            if (other.gameObject.tag == "slow")
+            if(other.gameObject.layer == 10 && gameObject.layer == 8)
             {
-                gameObject.GetComponentInParent<player>().slowEnemies();
+                Destroy(other.gameObject);
             }
+            if(other.gameObject.layer == 11 && gameObject.layer == 9)
+            {
+                Destroy(other.gameObject);
+            }
+        }
+        if (other.gameObject.tag == "slow")
+        {
+            Debug.Log("Blargh");
+            gameObject.GetComponentInParent<player>().slowEnemies();
+            other.gameObject.transform.position = new Vector3(-3, -15, 0);
         }
     }
 }
