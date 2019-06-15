@@ -32,6 +32,7 @@ public class player : MonoBehaviour
         shield.transform.position = transform.position + itemPosition;
         weapon.SetActive(false);
         armed = weapon.activeSelf;
+
         /*for(int i = 0; i < 4; i++)
         {
             Debug.Log(Input.GetJoystickNames()[i]);
@@ -42,10 +43,11 @@ public class player : MonoBehaviour
             int controllerNum = Input.GetJoystickNames().Length;
             for (int i = 0; i < controllerNum; i++)
             {
-                if (Input.GetJoystickNames()[i].Equals("USB Joystick     "))
+                if(Input.GetJoystickNames()[i].Equals("Wireless Controller"))
                 {
                     Debug.Log("Joystick found");
-                    controllerID = i + 1;
+                    Debug.Log(i);
+                    controllerID = i+1;
                 }
             }
         }
@@ -64,19 +66,40 @@ public class player : MonoBehaviour
     void Update()
     {
         //Change Item
-        if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder))
+        if (playerID == 3)
         {
-            if (weapon.activeSelf)
+            if (Input.GetButtonDown("Change" + controllerID) && !Input.GetButtonDown("Fire" + controllerID))
             {
-                weapon.SetActive(false);
-                armed = false;
-                shield.SetActive(true);
+                if (weapon.activeSelf)
+                {
+                    weapon.SetActive(false);
+                    armed = false;
+                    shield.SetActive(true);
+                }
+                else if (shield.activeSelf)
+                {
+                    shield.SetActive(false);
+                    armed = true;
+                    weapon.SetActive(true);
+                }
             }
-            else if (shield.activeSelf)
+        }
+        else
+        {
+            if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder))
             {
-                shield.SetActive(false);
-                armed = true;
-                weapon.SetActive(true);
+                if (weapon.activeSelf)
+                {
+                    weapon.SetActive(false);
+                    armed = false;
+                    shield.SetActive(true);
+                }
+                else if (shield.activeSelf)
+                {
+                    shield.SetActive(false);
+                    armed = true;
+                    weapon.SetActive(true);
+                }
             }
         }
     }
@@ -90,10 +113,10 @@ public class player : MonoBehaviour
         //Ggf manuelle Anpassung an einen Controller, der nicht mit dem Input Manager arbeitet
         if (playerID == 3)
         {
-            amtToMove = Input.GetAxis("Horizontal" + controllerID) * playerSpeed * 100 * Time.deltaTime;
-            amtToMove2 = Input.GetAxis("Vertical" + controllerID) * playerSpeed * 100 * Time.deltaTime;
-            /*Debug.Log("0: " + Input.GetAxis("Horizontal"));
-            Debug.Log("1: " + Input.GetAxis("Horizontal1"));
+            amtToMove = Input.GetAxis("Horizontal" + controllerID) * playerSpeed / 2 * Time.deltaTime;
+            amtToMove2 = Input.GetAxis("Vertical" + controllerID) * playerSpeed / 2 * Time.deltaTime;
+            /*Debug.Log(Input.GetAxis("Horizontal" + controllerID));
+            Debug.Log(Input.GetAxis("Vertical" + controllerID));
             Debug.Log("2: " + Input.GetAxis("Horizontal2"));
             Debug.Log("3: " + Input.GetAxis("Horizontal3"));
             Debug.Log("4: " + Input.GetAxis("Horizontal4"));*/
@@ -106,23 +129,23 @@ public class player : MonoBehaviour
 
         if (movable)
         {
-            if (amtToMove > 0 && amtToMove2 < 0) //Das Mathf.Abs könnte evtl für Analog-Sticks wichtig sein
+            if (amtToMove > 0 && Mathf.Abs(amtToMove) > Mathf.Abs(amtToMove2)) //Das Mathf.Abs könnte evtl für Analog-Sticks wichtig sein
             {
                 anim.SetInteger("State", 4);
                 lastKey = 4;
             }
 
-            if (amtToMove < 0 && amtToMove2 > 0)
+            if (amtToMove < 0 && Mathf.Abs(amtToMove) > Mathf.Abs(amtToMove2))
             {
                 anim.SetInteger("State", 2);
                 lastKey = 2;
             }
-            if (amtToMove2 < 0 && amtToMove2 < 0)
+            if (amtToMove2 < 0 && Mathf.Abs(amtToMove2) > Mathf.Abs(amtToMove))
             {
                 anim.SetInteger("State", 1);
                 lastKey = 1;
             }
-            if (amtToMove2 > 0 && amtToMove > 0)
+            if (amtToMove2 > 0 && Mathf.Abs(amtToMove2) > Mathf.Abs(amtToMove))
             {
                 anim.SetInteger("State", 3);
                 lastKey = 3;
@@ -143,32 +166,30 @@ public class player : MonoBehaviour
             //}
         }
         //Positionieren des Items, abhängig von der Ausrichtung des rechten Sticks
-        if (Mathf.Abs(InputManager.Instance.getRightStick(playerID).x) + Mathf.Abs(InputManager.Instance.getRightStick(playerID).y) >= 0.1f)
+        if (playerID == 3)
         {
             itemPosition = new Vector3(InputManager.Instance.getRightStick(playerID).x, InputManager.Instance.getRightStick(playerID).y, 0.0f);
             itemPosition = Vector3.Normalize(itemPosition) * 2;
             weapon.transform.position = transform.position + itemPosition;
             shield.transform.position = transform.position + itemPosition;
+            
         }
+
         if (armed && onCooldown == false)//Überprüfung ob Waffe ausgerüstet ist und geschossen werden kann
         {
-            if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder))
+            if (playerID == 3)
             {
-                GameObject obj = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
-                obj.layer = gameObject.layer;
-                Projectile projectile = obj.GetComponent<Projectile>();
-                projectile.setDirection(itemPosition);
-                projectile.sourceId = playerID;
+                GameObject projectile = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
+                projectile.layer = gameObject.layer;
+                projectile.GetComponent<Projectile>().SetDirection(itemPosition);
                 onCooldown = true;
                 StartCoroutine(Cooldown());
             }
-            if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && onCooldown2 == false)
+            else
             {
-                GameObject obj = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
-                obj.layer = gameObject.layer;
-                Projectile projectile = obj.GetComponent<Projectile>();
-                projectile.setDirection(itemPosition);
-                projectile.sourceId = playerID;
+                GameObject projectile = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
+                projectile.layer = gameObject.layer;
+                projectile.GetComponent<Projectile>().SetDirection(itemPosition);
                 onCooldown = true;
                 StartCoroutine(Cooldown());
                 StartCoroutine(SpecialCooldown());
@@ -270,6 +291,8 @@ public class player : MonoBehaviour
         transform.position = newpos;
     }
 
+    
+
     public void reduceLife(int team)
     {
         //to do
@@ -280,30 +303,31 @@ public class player : MonoBehaviour
     {
         if (teamNumber == 1)
         {
-            /*GameObject.Find("player3").gameObject.GetComponent<player>().getSlowed();
-             *GameObject.Find("player4").gameObject.GetComponent<player>().getSlowed();*/
+            /*GameObject.Find("player3").gameObject.GetComponent<player>().setSlow();
+            GameObject.Find("player4").gameObject.GetComponent<player>().setSlow();*/
+            GameObject.Find("player2").gameObject.GetComponent<player>().setSlow();
         }
         else
         {
-            /*GameObject.Find("player1").gameObject.GetComponent<player>().getSlowed();
-             *GameObject.Find("player2").gameObject.GetComponent<player>().getSlowed();*/
+            /*GameObject.Find("player1").gameObject.GetComponent<player>().setSlow();
+            GameObject.Find("player2").gameObject.GetComponent<player>().setSlow();*/
         }
     }
 
-    public void getSlowed()
+    public void setSlow()
     {
-        playerSpeed = 7;
+        playerSpeed = 6;
     }
 
-    public void endSlow()
+    public void revertSlow()
     {
         playerSpeed = 12;
     }
 
-    IEnumerator Slow()
+    public void reduceLife(int team)
     {
-        yield return new WaitForSeconds(5f);
-        endSlow();
+        //to do
+        Debug.Log(team);
     }
 
     IEnumerator Cooldown()
@@ -317,4 +341,5 @@ public class player : MonoBehaviour
         yield return new WaitForSeconds(10f);
         onCooldown2 = false;
     }
+
 }
