@@ -66,6 +66,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject[] players = new GameObject[4];
 
+    private CountDown startTimer;
+
     void Start()
     {
         if (!instance)
@@ -114,6 +116,11 @@ public class GameManager : MonoBehaviour
         {
             finishGame();
         }
+    }
+
+    public bool isTimerActive()
+    {
+        return !startTimer || !startTimer.isActiveAndEnabled;
     }
 
     //---------------------------------------------------------------------------------------------------------------------
@@ -189,7 +196,8 @@ public class GameManager : MonoBehaviour
 
     public static void startGame()
     {
-        //SpawnBehaviour.spawnPlayers(instance.players.Length);
+        instance.startTimer = new CountDown();
+        instance.startTimer.run = true;
         instance.teamHealth1 = 20;
         instance.teamHealth2 = 20;
         SceneManager.LoadScene(1);
