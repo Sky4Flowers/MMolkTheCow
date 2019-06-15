@@ -35,7 +35,10 @@ public class playerHitbox : MonoBehaviour
                                     Destroy(other.gameObject);
                                 }
                     
-        
+                        if(other.gameObject.tag == "slow")
+                         {
+                gameObject.GetComponentInParent<player>().slowEnemies();
+                         }
         }
         
 

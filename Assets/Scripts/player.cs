@@ -290,6 +290,36 @@ public class player : MonoBehaviour
         Debug.Log(team);
     }
 
+    public void slowEnemies()
+    {
+        if(teamNumber == 1)
+        {
+            /*GameObject.Find("player3").gameObject.GetComponent<player>().getSlowed();
+             *GameObject.Find("player4").gameObject.GetComponent<player>().getSlowed();*/
+        }
+        else
+        {
+            /*GameObject.Find("player1").gameObject.GetComponent<player>().getSlowed();
+             *GameObject.Find("player2").gameObject.GetComponent<player>().getSlowed();*/
+        }
+    }
+
+    public void getSlowed()
+    {
+        playerSpeed = 7;
+    }
+
+    public void endSlow()
+    {
+        playerSpeed = 12;
+    }
+
+    IEnumerator Slow()
+    {
+        yield return new WaitForSeconds(5f);
+        endSlow();
+    }
+
     IEnumerator Cooldown()
     {
         yield return new WaitForSeconds(1f);
@@ -301,4 +331,5 @@ public class player : MonoBehaviour
         yield return new WaitForSeconds(10f);
         onCooldown2 = false;
     }
+
 }
