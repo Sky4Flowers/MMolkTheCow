@@ -23,11 +23,11 @@ public class Wall : MonoBehaviour
         {
             Debug.Log("wall");
 
-            if (other.gameObject.tag == "standard")
+            if (other.gameObject.tag == "ProjectileStandard")
             {
                 Destroy(other.gameObject);
             }
-            if (other.gameObject.tag == "special")
+            if (other.gameObject.tag == "ProjectileSpecial")
             {
                 if(other.gameObject.GetComponent<Projectile>().bounce < 3)
                 {
@@ -41,7 +41,5 @@ public class Wall : MonoBehaviour
                 }
             }
         }
-
-
     }
 }
