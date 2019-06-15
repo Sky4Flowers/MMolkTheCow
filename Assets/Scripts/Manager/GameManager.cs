@@ -197,6 +197,14 @@ public class GameManager : MonoBehaviour
         return instance.players[playerId];
     }
 
+    public static int[] getTeamHeaths()
+    {
+        int[] hps = new int[2];
+        hps[0] = instance.teamHealth1;
+        hps[1] = instance.teamHealth2;
+        return hps;
+    }
+
     public static void finishGame()
     {
         //TODO
