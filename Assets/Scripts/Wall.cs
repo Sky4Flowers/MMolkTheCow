@@ -15,23 +15,25 @@ public class Wall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Contains("Projectile"))
         {
-            Debug.Log("wall2");
+            Debug.Log("wall2" + other.gameObject.CompareTag("ProjectileStandard") + " " + other.gameObject.CompareTag("ProjectileSpecial"));
 
-            if (other.gameObject.tag == "ProjectileStandard")
+            if (other.gameObject.CompareTag("ProjectileStandard"))
             {
+                Debug.Log("Destroying");
                 Destroy(other.gameObject);
             }
-            if (other.gameObject.tag == "ProjectileSpecial")
+            else if (other.gameObject.CompareTag("ProjectileSpecial"))
             {
-                if(other.gameObject.GetComponent<Projectile>().bounce < 3)
+                if (other.gameObject.GetComponent<Projectile>().bounce < 3)
                 {
+                    Debug.Log("Bounce");
                     other.gameObject.GetComponent<Projectile>().bounce++;
                     other.GetComponent<Projectile>().onCollisionWith(collider);
                 }
