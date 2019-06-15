@@ -28,13 +28,13 @@ public class PlayerScore
         playerScoreValue = GameObject.Find(playerScoreValueId).GetComponent<Text>();
         playerScoreValue.color = color;
 
-        if (playerId == 1 || playerId == 3)
+        if (playerId == 1 || playerId == 2)
         {
-            color = new Color(0x59 / 255.0f, 0xff / 255.0f, 0x67 / 255.0f);
+            color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f);
         }
         else
         {
-            color = new Color(0x04 / 255.0f, 0xf8 / 255.0f, 0xff / 255.0f);
+            color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f);
         }
         playerScore.color = color;
         playerScoreValue.color = color;
@@ -43,7 +43,15 @@ public class PlayerScore
     }
     void SetScore()
     {
-        playerScore.text = "PLAYER #" + playerId + "\nHealth:" + "\nFarthest Shot:";
-        playerScoreValue.text = "\n" + health + "\n" + longestShot;
+        string name = "";
+        switch (playerId)
+        {
+            case 1: name = "LORENA"; break;
+            case 2: name = "OLIVER"; break;
+            case 3: name = "MAX"; break;
+            case 4: name = "MORITZ"; break;
+        }
+        playerScore.text = "PLAYER #" + playerId + ":" + "\nHealth:" + "\nFarthest Shot:";
+        playerScoreValue.text = name + "\n" + health + "\n" + longestShot;
     }
 }
