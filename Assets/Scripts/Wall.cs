@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+    private Collider collider;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        collider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -18,8 +20,7 @@ public class Wall : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("wall");
-        if (other.gameObject.tag != "shield" && other.gameObject.tag != "Player")
+        if (other.gameObject.tag.Contains("Projectile"))
         {
             Debug.Log("wall");
 
@@ -32,8 +33,7 @@ public class Wall : MonoBehaviour
                 if(other.gameObject.GetComponent<Projectile>().bounce < 3)
                 {
                     other.gameObject.GetComponent<Projectile>().bounce++;
-                    //reflektieren fehlt, hier nur testweise:
-                    other.gameObject.GetComponent<Projectile>().direction *= -1;
+                    other.GetComponent<Projectile>().onCollisionWith(collider);
                 }
                 else
                 {

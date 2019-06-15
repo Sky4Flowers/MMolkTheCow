@@ -6,8 +6,8 @@ TagManager:
   tags:
   - Interesting
   - shield
-  - standard
-  - special
+  - ProjectileStandard
+  - ProjectileSpecial
   layers:
   - Default
   - TransparentFX
