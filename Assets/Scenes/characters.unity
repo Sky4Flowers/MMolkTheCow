@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 27542441}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 25.911102, y: -8.12738, z: -11.535027}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 180112465}
   m_RootOrder: 1
@@ -269,7 +269,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a2c27be9e05d2444c84b200e7c859856, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd42b874907e8c244b4059d132cfe938, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -289,7 +289,7 @@ Transform:
   m_GameObject: {fileID: 180112463}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1625833899}
   - {fileID: 27542442}
@@ -312,6 +312,7 @@ MonoBehaviour:
   playerSpeed: 12
   playerID: 0
   teamNumber: 1
+  anim: {fileID: 0}
   weapon: {fileID: 27542441}
   shield: {fileID: 1625833898}
   bullet: {fileID: 8516266615218893636, guid: 78d936a5139af49489f9cf94edc033fa, type: 3}
@@ -356,7 +357,7 @@ Animator:
   m_GameObject: {fileID: 180112463}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc32db6dc5d177c40a32d78c926d164d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -665,7 +666,7 @@ Animator:
   m_GameObject: {fileID: 842343392}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc32db6dc5d177c40a32d78c926d164d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -689,10 +690,12 @@ MonoBehaviour:
   playerSpeed: 12
   playerID: 1
   teamNumber: 2
+  anim: {fileID: 0}
   weapon: {fileID: 2031248076}
   shield: {fileID: 699827926}
   bullet: {fileID: 8516266615218893636, guid: 78d936a5139af49489f9cf94edc033fa, type: 3}
-  specialBullet: {fileID: 0}
+  specialBullet: {fileID: 8516266615218893636, guid: 7bec3e7525bb6aa449bea29637ac3201,
+    type: 3}
 --- !u!212 &842343397
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1088,7 +1091,7 @@ Transform:
   m_GameObject: {fileID: 1625833898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 25.911102, y: -8.12738, z: -11.535027}
-  m_LocalScale: {x: 2, y: 6, z: 2}
+  m_LocalScale: {x: 1, y: 2, z: 0.3}
   m_Children: []
   m_Father: {fileID: 180112465}
   m_RootOrder: 0

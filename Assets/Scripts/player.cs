@@ -26,6 +26,7 @@ public class player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         movable = true;
         rb = GetComponent<Rigidbody>();
         itemPosition = new Vector3(1.0f, 0.0f, 0.0f);
@@ -108,26 +109,27 @@ public class player : MonoBehaviour
         {
             if (amtToMove > 0 && Mathf.Abs(amtToMove) > Mathf.Abs(amtToMove2)) //Das Mathf.Abs könnte evtl für Analog-Sticks wichtig sein
             {
-                //anim.SetInteger("State", 4);
+                
+                anim.SetInteger("State", 4);
                 lastKey = 4;
 
             }
 
             if (amtToMove < 0 && Mathf.Abs(amtToMove) > Mathf.Abs(amtToMove2))
             {
-                //anim.SetInteger("State", 2);
+                anim.SetInteger("State", 2);
                 lastKey = 2;
 
             }
             if (amtToMove2 < 0 && Mathf.Abs(amtToMove2) > Mathf.Abs(amtToMove))
             {
-                //anim.SetInteger("State", 1);
+                anim.SetInteger("State", 1);
                 lastKey = 1;
 
             }
             if (amtToMove2 > 0 && Mathf.Abs(amtToMove2) > Mathf.Abs(amtToMove))
             {
-                //anim.SetInteger("State", 3);
+                anim.SetInteger("State", 3);
                 lastKey = 3;
 
             }
@@ -151,7 +153,7 @@ public class player : MonoBehaviour
         if (Mathf.Abs(InputManager.Instance.getRightStick(playerID).x) + Mathf.Abs(InputManager.Instance.getRightStick(playerID).y) >= 0.1f)
         {
             itemPosition = new Vector3(InputManager.Instance.getRightStick(playerID).x, InputManager.Instance.getRightStick(playerID).y, 0.0f);
-            itemPosition = Vector3.Normalize(itemPosition) * 4;
+            itemPosition = Vector3.Normalize(itemPosition) * 2;
             weapon.transform.position = transform.position + itemPosition;
             shield.transform.position = transform.position + itemPosition;
             
@@ -180,7 +182,7 @@ public class player : MonoBehaviour
 
         if (amtToMove == 0 && amtToMove2 == 0)
         {
-            //anim.SetInteger("State", -1 * lastKey);
+            //anim.SetInteger("State", 1 * lastKey);
         }
 
         if (movable)
@@ -267,7 +269,7 @@ public class player : MonoBehaviour
         movable = set;
         if (!movable)
         {
-            anim.SetInteger("State", -1 * lastKey);
+            //anim.SetInteger("State", -1 * lastKey);
             rb.velocity = Vector3.zero;
         }
     }
