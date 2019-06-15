@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    struct PlayerStat
+    {
+        public int playerId;
+        public int statId;
+        public float points;
+    }
+
     private static GameManager instance;
 
     public static GameManager getInstance()
@@ -38,6 +46,12 @@ public class GameManager : MonoBehaviour
     private int bulletIdentifier = 0;
     private Vector2[] playerPos;
 
+    private PlayerStat longestShotDistance = new PlayerStat();
+    //TODO Playerstats setzen
+    private PlayerStat bestAccuracy = new PlayerStat();
+    private PlayerStat mostHealthDrain = new PlayerStat();
+    private PlayerStat mostHealthLeft = new PlayerStat();
+
     private CamBehaviour mainCam;
     private float camSize = 10;
     private int camMaxSize = 20;
@@ -45,7 +59,7 @@ public class GameManager : MonoBehaviour
     private bool isWaitingToZoom = false;
     private bool shouldZoomIn = false;
 
-    private float maxDistance = 0;
+    private GameObject[] players = new GameObject[4];
 
     void Start()
     {
@@ -66,7 +80,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(mainCam.shouldLookAtInterest() + " " + shouldZoomIn);
         if (mainCam.shouldLookAtInterest())
         {
             shouldZoomIn = false;
@@ -140,9 +153,10 @@ public class GameManager : MonoBehaviour
     public void killBullet(int id)
     {
         BulletWay bullet = getBulletById(id);
-        if (bullet.distance > maxDistance)
+        if (bullet.distance > longestShotDistance.points)
         {
-            maxDistance = bullet.distance;
+            longestShotDistance.playerId = bullet.getPlayerId();
+            longestShotDistance.points = bullet.distance;
         }
         bulletFlights.Remove(bullet);
     }
@@ -157,6 +171,34 @@ public class GameManager : MonoBehaviour
             }
         }
         return new BulletWay();
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------
+    //Switch Scenes
+    //---------------------------------------------------------------------------------------------------------------------
+
+    public static void startGame()
+    {
+        //SpawnBehaviour.spawnPlayers(instance.players.Length);
+        SceneManager.LoadScene(1);
+    }
+
+    public static GameObject getPlayerById(int playerId)
+    {
+        return instance.players[playerId];
+    }
+
+    public static void finishGame()
+    {
+        //TODO
+        //Get Playerstats
+        //calculate best badgestats
+        SceneManager.LoadScene(2);
+    }
+
+    public static void goBackToMain()
+    {
+        SceneManager.LoadScene(0);
     }
 
     //---------------------------------------------------------------------------------------------------------------------
