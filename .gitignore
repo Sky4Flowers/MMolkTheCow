@@ -34,3 +34,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Own
+Assets/Rendering*
+Assets/Scenes/OliTest*
