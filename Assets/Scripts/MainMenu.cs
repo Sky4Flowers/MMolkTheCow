@@ -122,6 +122,6 @@ public class MainMenu : MonoBehaviour
     IEnumerator StartGame()
     {
         yield return new WaitForSeconds(3);
-        GameManager.goBackToMain();
+        GameManager.startGame();
     }
 }
