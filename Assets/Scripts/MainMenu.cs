@@ -32,11 +32,11 @@ public class MainMenu : MonoBehaviour
 
         team1 = GameObject.Find("Team1Title").GetComponent<Text>();
         team2 = GameObject.Find("Team2Title").GetComponent<Text>();
-        team1.color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f);
-        team2.color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f);
+        team1.color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f);
+        team2.color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f);
         manager = InputManager.Instance;
-        defaultColor1 = new Color(0x75 / 255.0f, 0x32 / 255.0f, 0x00 / 255.0f);
-        defaultColor2 = new Color(0x67 / 255.0f, 0x11 / 255.0f, 0x2a / 255.0f);
+        defaultColor1 = new Color(0x67 / 255.0f, 0x11 / 255.0f, 0x2a / 255.0f);
+        defaultColor2 = new Color(0x75 / 255.0f, 0x32 / 255.0f, 0x00 / 255.0f);
         player1.color = player2.color = defaultColor1;
         player3.color = player4.color = defaultColor2;
     }
@@ -78,7 +78,7 @@ public class MainMenu : MonoBehaviour
         {
             if (active)
             {
-                player1.color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f); return;
+                player1.color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f); return;
             }
             else
             {
@@ -89,7 +89,7 @@ public class MainMenu : MonoBehaviour
         {
             if (active)
             {
-                player3.color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f); return;
+                player3.color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f); return;
             }
             else
             {
@@ -100,7 +100,7 @@ public class MainMenu : MonoBehaviour
         {
             if (active)
             {
-                player2.color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f); return;
+                player2.color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f); return;
             }
             else
             {
@@ -111,7 +111,7 @@ public class MainMenu : MonoBehaviour
         {
             if (active)
             {
-                player4.color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f); return;
+                player4.color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f); return;
             }
             else
             {

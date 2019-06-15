@@ -30,11 +30,11 @@ public class PlayerScore
 
         if (playerId == 1 || playerId == 2)
         {
-            color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f);
+            color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f);
         }
         else
         {
-            color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f);
+            color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f);
         }
         playerScore.color = color;
         playerScoreValue.color = color;
@@ -46,10 +46,10 @@ public class PlayerScore
         string name = "";
         switch (playerId)
         {
-            case 1: name = "KONSTI"; break;
-            case 2: name = "OLIVER"; break;
-            case 3: name = "MAX"; break;
-            case 4: name = "MORITZ"; break;
+            case 1: name = "ARIS"; break;
+            case 2: name = "BRAX"; break;
+            case 3: name = "COUP"; break;
+            case 4: name = "DAIN"; break;
         }
         playerScore.text = "PLAYER #" + playerId + ":" + "\nHealth:" + "\nFarthest Shot:";
         playerScoreValue.text = name + "\n" + health + "\n" + longestShot;
