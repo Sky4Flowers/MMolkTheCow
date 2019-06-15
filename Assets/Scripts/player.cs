@@ -168,31 +168,66 @@ public class player : MonoBehaviour
         //Positionieren des Items, abhängig von der Ausrichtung des rechten Sticks
         if (playerID == 3)
         {
-            itemPosition = new Vector3(InputManager.Instance.getRightStick(playerID).x, InputManager.Instance.getRightStick(playerID).y, 0.0f);
-            itemPosition = Vector3.Normalize(itemPosition) * 2;
-            weapon.transform.position = transform.position + itemPosition;
-            shield.transform.position = transform.position + itemPosition;
-            
+            if (Mathf.Abs(Input.GetAxis("HorizontalRight" + controllerID)) + Mathf.Abs(Input.GetAxis("VerticalRight" + controllerID)) >= 0.1f)
+            {
+                itemPosition = new Vector3(Input.GetAxis("HorizontalRight" + controllerID), Input.GetAxis("VerticalRight" + controllerID), 0.0f);
+                itemPosition = Vector3.Normalize(itemPosition) * 4;
+                weapon.transform.position = transform.position + itemPosition;
+                shield.transform.position = transform.position + itemPosition;
+            }
+        }
+        else
+        {
+            if (Mathf.Abs(InputManager.Instance.getRightStick(playerID).x) + Mathf.Abs(InputManager.Instance.getRightStick(playerID).y) >= 0.1f)
+            {
+                itemPosition = new Vector3(InputManager.Instance.getRightStick(playerID).x, InputManager.Instance.getRightStick(playerID).y, 0.0f);
+                itemPosition = Vector3.Normalize(itemPosition) * 4;
+                weapon.transform.position = transform.position + itemPosition;
+                shield.transform.position = transform.position + itemPosition;
+            }
         }
 
         if (armed && onCooldown == false)//Überprüfung ob Waffe ausgerüstet ist und geschossen werden kann
         {
             if (playerID == 3)
             {
-                GameObject projectile = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
-                projectile.layer = gameObject.layer;
-                projectile.GetComponent<Projectile>().SetDirection(itemPosition);
-                onCooldown = true;
-                StartCoroutine(Cooldown());
+                if (Input.GetButtonDown("Fire" + controllerID) && !Input.GetButtonDown("Change" + controllerID))
+                {
+                    GameObject projectile = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
+                    projectile.layer = gameObject.layer;
+                    projectile.GetComponent<Projectile>().SetDirection(itemPosition);
+                    onCooldown = true;
+                    StartCoroutine(Cooldown());
+                }
+                if (Input.GetButtonDown("Fire" + controllerID) && Input.GetButtonDown("Change" + controllerID) && onCooldown2 == false)
+                {
+                    GameObject projectile = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
+                    projectile.layer = gameObject.layer;
+                    projectile.GetComponent<Projectile>().SetDirection(itemPosition);
+                    onCooldown = true;
+                    StartCoroutine(Cooldown());
+                    StartCoroutine(SpecialCooldown());
+                }
             }
             else
             {
-                GameObject projectile = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
-                projectile.layer = gameObject.layer;
-                projectile.GetComponent<Projectile>().SetDirection(itemPosition);
-                onCooldown = true;
-                StartCoroutine(Cooldown());
-                StartCoroutine(SpecialCooldown());
+                if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder))
+                {
+                    GameObject projectile = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
+                    projectile.layer = gameObject.layer;
+                    projectile.GetComponent<Projectile>().SetDirection(itemPosition);
+                    onCooldown = true;
+                    StartCoroutine(Cooldown());
+                }
+                if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && onCooldown2 == false)
+                {
+                    GameObject projectile = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
+                    projectile.layer = gameObject.layer;
+                    projectile.GetComponent<Projectile>().SetDirection(itemPosition);
+                    onCooldown = true;
+                    StartCoroutine(Cooldown());
+                    StartCoroutine(SpecialCooldown());
+                }
             }
         }
 
@@ -291,14 +326,6 @@ public class player : MonoBehaviour
         transform.position = newpos;
     }
 
-    
-
-    public void reduceLife(int team)
-    {
-        //to do
-        Debug.Log(team);
-    }
-
     public void slowEnemies()
     {
         if (teamNumber == 1)
@@ -340,7 +367,7 @@ public class player : MonoBehaviour
 
     IEnumerator Slow()
     {
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(6f);
         revertSlow();
     }
 }
