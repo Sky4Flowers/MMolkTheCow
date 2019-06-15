@@ -400,9 +400,10 @@ public class player : MonoBehaviour
         playerSpeed = 12;
     }
 
+   //TODO: DAMAGE ?
    public void reduceLife(int team)
    {
-
+        GameManager.reduceTeamHealth(team);
    }
 
     IEnumerator Cooldown()

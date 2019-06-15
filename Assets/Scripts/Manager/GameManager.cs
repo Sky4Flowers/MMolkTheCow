@@ -61,6 +61,9 @@ public class GameManager : MonoBehaviour
     private bool isWaitingToZoom = false;
     private bool shouldZoomIn = false;
 
+    private HealthBar healthBar1;
+    private HealthBar healthBar2;
+
     private GameObject[] players = new GameObject[4];
 
     void Start()
@@ -190,9 +193,28 @@ public class GameManager : MonoBehaviour
         instance.teamHealth1 = 20;
         instance.teamHealth2 = 20;
         SceneManager.LoadScene(1);
+        bool firstBar = true;
         foreach(HealthBar g in Resources.FindObjectsOfTypeAll(typeof(HealthBar)) as HealthBar[])
         {
+            if (firstBar)
+            {
+                instance.healthBar1 = g;
+                firstBar = false;
+            }
+            else
+            {
+                instance.healthBar2 = g;
+            }
             g.enabled = true;
+        }
+    }
+
+    public static void reduceTeamHealth(int teamId)
+    {
+        switch (teamId)
+        {
+            case 0: instance.healthBar1.DecreaseHealthbar(); instance.teamHealth1 -= 1;  break;
+            case 1: instance.healthBar2.DecreaseHealthbar(); instance.teamHealth1 -= 1; break;
         }
     }
 
