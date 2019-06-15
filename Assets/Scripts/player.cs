@@ -17,9 +17,14 @@ public class player : MonoBehaviour
     int controllerID;
     bool armed;
     public GameObject bullet;
+    public GameObject specialBullet;
+    bool onCooldown;
+    bool onCooldown2;
+
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         movable = true;
         rb = GetComponent<Rigidbody>();
         itemPosition = new Vector3(1.0f, 0.0f, 0.0f);
@@ -32,23 +37,24 @@ public class player : MonoBehaviour
             Debug.Log(Input.GetJoystickNames()[i]);
         }*/
         //Suche nach dem manuell einzustellenden Controller, falls Probleme mit dem Input Manager auftreten
-        if(playerID == 3)
+        if (playerID == 3)
         {
             int controllerNum = Input.GetJoystickNames().Length;
             for (int i = 0; i < controllerNum; i++)
             {
-                if(Input.GetJoystickNames()[i].Equals("USB Joystick     "))
+                if (Input.GetJoystickNames()[i].Equals("USB Joystick     "))
                 {
                     Debug.Log("Joystick found");
-                    controllerID = i+1;
+                    controllerID = i + 1;
                 }
             }
         }
         //Setzen des Layers je nach Teamnummer
-        if(teamNumber == 1)
+        if (teamNumber == 1)
         {
             gameObject.layer = 8;
-        }else if (teamNumber == 2)
+        }
+        else if (teamNumber == 2)
         {
             gameObject.layer = 9;
         }
@@ -58,7 +64,7 @@ public class player : MonoBehaviour
     void Update()
     {
         //Change Item
-        if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder))
+        if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder))
         {
             if (weapon.activeSelf)
             {
@@ -86,11 +92,11 @@ public class player : MonoBehaviour
         {
             amtToMove = Input.GetAxis("Horizontal" + controllerID) * playerSpeed * 100 * Time.deltaTime;
             amtToMove2 = Input.GetAxis("Vertical" + controllerID) * playerSpeed * 100 * Time.deltaTime;
-            Debug.Log("0: " + Input.GetAxis("Horizontal"));
+            /*Debug.Log("0: " + Input.GetAxis("Horizontal"));
             Debug.Log("1: " + Input.GetAxis("Horizontal1"));
             Debug.Log("2: " + Input.GetAxis("Horizontal2"));
             Debug.Log("3: " + Input.GetAxis("Horizontal3"));
-            Debug.Log("4: " + Input.GetAxis("Horizontal4"));
+            Debug.Log("4: " + Input.GetAxis("Horizontal4"));*/
         }
         else
         {
@@ -100,30 +106,26 @@ public class player : MonoBehaviour
 
         if (movable)
         {
-            if (amtToMove > 0 && Mathf.Abs(amtToMove) > Mathf.Abs(amtToMove2)) //Das Mathf.Abs könnte evtl für Analog-Sticks wichtig sein
+            if (amtToMove > 0 && amtToMove2 < 0) //Das Mathf.Abs könnte evtl für Analog-Sticks wichtig sein
             {
-                //anim.SetInteger("State", 4);
+                anim.SetInteger("State", 4);
                 lastKey = 4;
-
             }
 
-            if (amtToMove < 0 && Mathf.Abs(amtToMove) > Mathf.Abs(amtToMove2))
+            if (amtToMove < 0 && amtToMove2 > 0)
             {
-                //anim.SetInteger("State", 2);
+                anim.SetInteger("State", 2);
                 lastKey = 2;
-
             }
-            if (amtToMove2 < 0 && Mathf.Abs(amtToMove2) > Mathf.Abs(amtToMove))
+            if (amtToMove2 < 0 && amtToMove2 < 0)
             {
-                //anim.SetInteger("State", 1);
+                anim.SetInteger("State", 1);
                 lastKey = 1;
-
             }
-            if (amtToMove2 > 0 && Mathf.Abs(amtToMove2) > Mathf.Abs(amtToMove))
+            if (amtToMove2 > 0 && amtToMove > 0)
             {
-                //anim.SetInteger("State", 3);
+                anim.SetInteger("State", 3);
                 lastKey = 3;
-
             }
 
             //transform.Translate(Vector2.right * amtToMove);
@@ -137,105 +139,115 @@ public class player : MonoBehaviour
             }
             else
             {*/
-                rb.MovePosition(rb.position + movement);
+            rb.MovePosition(rb.position + movement);
             //}
-
         }
         //Positionieren des Items, abhängig von der Ausrichtung des rechten Sticks
         if (Mathf.Abs(InputManager.Instance.getRightStick(playerID).x) + Mathf.Abs(InputManager.Instance.getRightStick(playerID).y) >= 0.1f)
         {
             itemPosition = new Vector3(InputManager.Instance.getRightStick(playerID).x, InputManager.Instance.getRightStick(playerID).y, 0.0f);
-            itemPosition = Vector3.Normalize(itemPosition);
+            itemPosition = Vector3.Normalize(itemPosition) * 2;
             weapon.transform.position = transform.position + itemPosition;
             shield.transform.position = transform.position + itemPosition;
         }
-
-        if (armed)//Überprüfung ob Waffe ausgerüstet ist und geschossen werden kann
+        if (armed && onCooldown == false)//Überprüfung ob Waffe ausgerüstet ist und geschossen werden kann
         {
-            if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder))
+            if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder))
             {
-                GameObject projectile = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
-                projectile.layer = gameObject.layer;
-                projectile.GetComponent<Projectile>().SetDirection(itemPosition);
+                GameObject obj = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
+                obj.layer = gameObject.layer;
+                Projectile projectile = obj.GetComponent<Projectile>();
+                projectile.setDirection(itemPosition);
+                projectile.sourceId = playerID;
+                onCooldown = true;
+                StartCoroutine(Cooldown());
+            }
+            if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && onCooldown2 == false)
+            {
+                GameObject obj = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
+                obj.layer = gameObject.layer;
+                Projectile projectile = obj.GetComponent<Projectile>();
+                projectile.setDirection(itemPosition);
+                projectile.sourceId = playerID;
+                onCooldown = true;
+                StartCoroutine(Cooldown());
+                StartCoroutine(SpecialCooldown());
             }
         }
 
         if (amtToMove == 0 && amtToMove2 == 0)
         {
-            //anim.SetInteger("State", -1 * lastKey);
+            anim.SetInteger("State", -1 * lastKey);
         }
 
         if (movable)
         {
-          /*  if (Input.GetKeyDown(KeyCode.E)) //Überprüft auf Objekte mit denen Interagiert werden kann
-            {
-                //Hier ne Anfrage, ob man interagieren kann mit etwas, z.B. einem NPC
-                //Die Richtung des Blicks ergibt sich über den State:
-                //-1 oder 1 : -y
-                //-2 oder 2 : -x
-                //-3 oder 3 : y
-                //-4 oder 4 : x
-                //Der Raycast soll dann bei dem anderen Objekt die Methode "Action" auslösen
+            /*  if (Input.GetKeyDown(KeyCode.E)) //Überprüft auf Objekte mit denen Interagiert werden kann
+              {
+                  //Hier ne Anfrage, ob man interagieren kann mit etwas, z.B. einem NPC
+                  //Die Richtung des Blicks ergibt sich über den State:
+                  //-1 oder 1 : -y
+                  //-2 oder 2 : -x
+                  //-3 oder 3 : y
+                  //-4 oder 4 : x
+                  //Der Raycast soll dann bei dem anderen Objekt die Methode "Action" auslösen
 
-                RaycastHit hit;
-                Vector2 raydirect = new Vector2(0, 0);
-                switch (lastKey)
-                {
-                    case 1:
-                        raydirect = Vector2.down;
-                        break;
-                    case 2:
-                        raydirect = Vector2.left;
-                        break;
-                    case 3:
-                        raydirect = Vector2.up;
-                        break;
-                    case 4:
-                        raydirect = Vector2.right;
-                        break;
-                    case -1:
-                        raydirect = Vector2.down;
-                        break;
-                    case -2:
-                        raydirect = Vector2.left;
-                        break;
-                    case -3:
-                        raydirect = Vector2.up;
-                        break;
-                    case -4:
-                        raydirect = Vector2.right;
-                        break;
-                }
+                  RaycastHit hit;
+                  Vector2 raydirect = new Vector2(0, 0);
+                  switch (lastKey)
+                  {
+                      case 1:
+                          raydirect = Vector2.down;
+                          break;
+                      case 2:
+                          raydirect = Vector2.left;
+                          break;
+                      case 3:
+                          raydirect = Vector2.up;
+                          break;
+                      case 4:
+                          raydirect = Vector2.right;
+                          break;
+                      case -1:
+                          raydirect = Vector2.down;
+                          break;
+                      case -2:
+                          raydirect = Vector2.left;
+                          break;
+                      case -3:
+                          raydirect = Vector2.up;
+                          break;
+                      case -4:
+                          raydirect = Vector2.right;
+                          break;
+                  }
 
-                if (Physics.Raycast(transform.position, raydirect, out hit, 1.7f))
-                {
-                    if (hit.collider.gameObject.tag == "World")
-                    {
-                        hit.collider.gameObject.GetComponent<Interaction>().Action(this.gameObject);
+                  if (Physics.Raycast(transform.position, raydirect, out hit, 1.7f))
+                  {
+                      if (hit.collider.gameObject.tag == "World")
+                      {
+                          hit.collider.gameObject.GetComponent<Interaction>().Action(this.gameObject);
+                      }
+                  }
+                  if (Physics.Raycast(transform.position, raydirect, out hit, 1.7f))
+                  {
+                      if (hit.collider.gameObject.tag == "Dead" && alive == false)
+                      {
+                          hit.collider.gameObject.GetComponent<Interaction>().Action(this.gameObject);
+                      }
+                  }
+              }
+              if (Input.GetKeyDown(KeyCode.T) )
+              {
 
-                    }
-
-                }
-
-                if (Physics.Raycast(transform.position, raydirect, out hit, 1.7f))
-                {
-                    if (hit.collider.gameObject.tag == "Dead" && alive == false)
-                    {
-                        hit.collider.gameObject.GetComponent<Interaction>().Action(this.gameObject);
-
-                    }
-
-                }
-
-            }
-            if (Input.GetKeyDown(KeyCode.T) )
-            {
-                
-            }*/
-			
+              }*/
         }
         rb.velocity = Vector3.zero;
 
+        if (armed == false)
+        {
+            shield.gameObject.transform.LookAt(gameObject.transform, new Vector3(1, 0, 0));
+        }
     }
 
     public void setMovable(bool set)
@@ -256,5 +268,53 @@ public class player : MonoBehaviour
     public void setPlayPos(Vector3 newpos)
     {
         transform.position = newpos;
+    }
+
+    public void reduceLife(int team)
+    {
+        //to do
+        Debug.Log(team);
+    }
+
+    public void slowEnemies()
+    {
+        if (teamNumber == 1)
+        {
+            /*GameObject.Find("player3").gameObject.GetComponent<player>().getSlowed();
+             *GameObject.Find("player4").gameObject.GetComponent<player>().getSlowed();*/
+        }
+        else
+        {
+            /*GameObject.Find("player1").gameObject.GetComponent<player>().getSlowed();
+             *GameObject.Find("player2").gameObject.GetComponent<player>().getSlowed();*/
+        }
+    }
+
+    public void getSlowed()
+    {
+        playerSpeed = 7;
+    }
+
+    public void endSlow()
+    {
+        playerSpeed = 12;
+    }
+
+    IEnumerator Slow()
+    {
+        yield return new WaitForSeconds(5f);
+        endSlow();
+    }
+
+    IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(1f);
+        onCooldown = false;
+    }
+
+    IEnumerator SpecialCooldown()
+    {
+        yield return new WaitForSeconds(10f);
+        onCooldown2 = false;
     }
 }

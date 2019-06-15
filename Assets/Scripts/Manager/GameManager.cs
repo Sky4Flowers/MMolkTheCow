@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -57,6 +58,8 @@ public class GameManager : MonoBehaviour
     private int camMinSize = 10;
     private bool isWaitingToZoom = false;
     private bool shouldZoomIn = false;
+
+    private GameObject[] players = new GameObject[4];
 
     void Start()
     {
@@ -176,7 +179,13 @@ public class GameManager : MonoBehaviour
 
     public static void startGame()
     {
-        //TODO
+        //SpawnBehaviour.spawnPlayers(instance.players.Length);
+        SceneManager.LoadScene(1);
+    }
+
+    public static GameObject getPlayerById(int playerId)
+    {
+        return instance.players[playerId];
     }
 
     public static void finishGame()
@@ -184,6 +193,12 @@ public class GameManager : MonoBehaviour
         //TODO
         //Get Playerstats
         //calculate best badgestats
+        SceneManager.LoadScene(2);
+    }
+
+    public static void goBackToMain()
+    {
+        SceneManager.LoadScene(0);
     }
 
     //---------------------------------------------------------------------------------------------------------------------
