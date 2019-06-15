@@ -27,13 +27,13 @@ public class TeamScore
         {
             teamName = "Team1Name";
             teamValue = "Team1Score";
-            color = new Color(0xfe/ 255.0f, 0xb7/ 255.0f, 0x1f/ 255.0f);
+            color = new Color(0xfd / 255.0f, 0x00 / 255.0f, 0x6a / 255.0f);
         }
         else
         {
             teamName = "Team2Name";
             teamValue = "Team2Score";
-            color = new Color(0xfd/255.0f, 0x00 / 255.0f, 0x6a / 255.0f);
+            color = new Color(0xfe / 255.0f, 0xb7 / 255.0f, 0x1f / 255.0f);
         }
 
         teamScore = GameObject.Find(teamName).GetComponent<Text>();
