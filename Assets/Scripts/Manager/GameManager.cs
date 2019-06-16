@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     }
 
     private static GameManager instance;
+    private static bool isSwitching = false;
 
     public static GameManager getInstance()
     {
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] players = new GameObject[4];
 
     private CountDown startTimer;
+    private bool gameHasFinished = false;
 
     void Start()
     {
@@ -111,8 +113,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (teamHealth1 <= 0 || teamHealth2 <= 0)
+        if (!gameHasFinished && (teamHealth1 <= 0 || teamHealth2 <= 0))
         {
+            gameHasFinished = true;
             finishGame();
         }
 
@@ -210,6 +213,13 @@ public class GameManager : MonoBehaviour
 
     public static void startGame()
     {
+        if (isSwitching)
+        {
+            return;
+        }
+        instance.StartCoroutine("SceneSwitchDelay");
+
+        instance.gameHasFinished = false;
         instance.startTimer = new CountDown();
         instance.startTimer.run = true;
         instance.teamHealth1 = 20;
@@ -219,14 +229,24 @@ public class GameManager : MonoBehaviour
 
     public static void finishGame()
     {
+        if (isSwitching)
+        {
+            return;
+        }
+        instance.StartCoroutine("SceneSwitchDelay");
         //TODO
         //Get Playerstats
         //calculate best badgestats
-        SceneManager.LoadScene(2);
+        //SceneManager.LoadScene(2);
     }
 
     public static void goBackToMain()
     {
+        if (isSwitching)
+        {
+            return;
+        }
+        instance.StartCoroutine("SceneSwitchDelay");
         SceneManager.LoadScene(0);
     }
 
@@ -270,5 +290,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         shouldZoomIn = true;
         isWaitingToZoom = false;
+    }
+
+    IEnumerator SceneSwitchDelay()
+    {
+        isSwitching = true;
+        yield return new WaitForSeconds(1);
+        isSwitching = false;
     }
 }
