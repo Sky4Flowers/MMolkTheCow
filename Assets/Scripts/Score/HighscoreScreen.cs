@@ -22,10 +22,7 @@ public class HighscoreScreen : MonoBehaviour
         playerScores.Add(new PlayerScore(2, 1, 400, 2456));
         playerScores.Add(new PlayerScore(3, 2, 700, 256));
         playerScores.Add(new PlayerScore(4, 2, 50, 246));
-    }
 
-    private void FixedUpdate()
-    {
         StartCoroutine("Restart");
     }
 
