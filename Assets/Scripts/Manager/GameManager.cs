@@ -202,6 +202,23 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public static void finishGame()
+    {
+        //TODO
+        //Get Playerstats
+        //calculate best badgestats
+        SceneManager.LoadScene(2);
+    }
+
+    public static void goBackToMain()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------
+    //Helpers & Getters
+    //---------------------------------------------------------------------------------------------------------------------
+
     public static void reduceTeamHealth(int teamId)
     {
         if (teamId == 0)
@@ -225,19 +242,10 @@ public class GameManager : MonoBehaviour
         return hps;
     }
 
-    public static void finishGame()
+    public static int getWinningTeam()
     {
-        //TODO
-        //Get Playerstats
-        //calculate best badgestats
-        SceneManager.LoadScene(2);
+        return instance.teamHealth1 > instance.teamHealth2 ? 1 : 2;
     }
-
-    public static void goBackToMain()
-    {
-        SceneManager.LoadScene(0);
-    }
-
     //---------------------------------------------------------------------------------------------------------------------
     //Coroutines
     //---------------------------------------------------------------------------------------------------------------------

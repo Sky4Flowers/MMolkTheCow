@@ -12,6 +12,7 @@ public class HighscoreScreen : MonoBehaviour
 
     void Start()
     {
+        winningTeam = GameManager.getWinningTeam();
         winningText = GameObject.Find("WinningTeam").GetComponent<Text>();
         winningText.text = "TEAM #" + winningTeam + " WINS!";
         winningText.color = Color.yellow;
