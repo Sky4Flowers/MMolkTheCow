@@ -44,11 +44,11 @@ public class player : MonoBehaviour
             int controllerNum = Input.GetJoystickNames().Length;
             for (int i = 0; i < controllerNum; i++)
             {
-                if(Input.GetJoystickNames()[i].Equals("Wireless Controller"))
+                if (Input.GetJoystickNames()[i].Equals("Wireless Controller"))
                 {
                     Debug.Log("Joystick found");
                     Debug.Log(i);
-                    controllerID = i+1;
+                    controllerID = i + 1;
                 }
             }
         }
@@ -170,7 +170,7 @@ public class player : MonoBehaviour
             }
             if (amtToMove > 0 && amtToMove2 > 0)
             {
-                if(armed == true)
+                if (armed == true)
                 {
                     anim.SetInteger("State", 8);
                     lastKey = 8;
@@ -264,12 +264,12 @@ public class player : MonoBehaviour
                 if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder))
                 {
                     GameObject obj = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
-                    if(teamNumber == 1)
+                    if (teamNumber == 1)
                     {
                         obj.layer = 10;
                         Debug.Log("Test 1");
                     }
-                    else if(teamNumber == 2)
+                    else if (teamNumber == 2)
                     {
                         obj.layer = 11;
                         Debug.Log("Test 2");
@@ -373,7 +373,11 @@ public class player : MonoBehaviour
 
         if (armed == false)
         {
-            shield.gameObject.transform.LookAt(gameObject.transform, new Vector3(1, 0, 0));
+            shield.gameObject.transform.LookAt(gameObject.transform, Vector3.right);
+        }
+        else
+        {
+            weapon.gameObject.transform.LookAt(gameObject.transform, Vector3.right);
         }
     }
 
@@ -424,11 +428,15 @@ public class player : MonoBehaviour
         slowAnim.SetActive(false);
     }
 
-   //TODO: DAMAGE ?
-   public void reduceLife(int team)
-   {
+    //TODO: DAMAGE ?
+    public void reduceLife(int team)
+    {
         GameManager.reduceTeamHealth(team);
-   }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    //Coroutines
+    //------------------------------------------------------------------------------------------------------------------
 
     IEnumerator Cooldown()
     {

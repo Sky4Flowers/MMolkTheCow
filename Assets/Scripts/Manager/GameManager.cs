@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
 
     public bool isTimerActive()
     {
-        return !startTimer || !startTimer.isActiveAndEnabled;
+        return startTimer && startTimer.isActiveAndEnabled;
     }
 
     //---------------------------------------------------------------------------------------------------------------------
