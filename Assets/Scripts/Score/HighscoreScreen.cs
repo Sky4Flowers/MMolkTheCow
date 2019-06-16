@@ -16,12 +16,12 @@ public class HighscoreScreen : MonoBehaviour
         winningText = GameObject.Find("WinningTeam").GetComponent<Text>();
         winningText.text = "TEAM #" + winningTeam + " WINS!";
         winningText.color = Color.yellow;
-        teamScores.Add(new TeamScore(1, 12345, 67890, 7));
-        teamScores.Add(new TeamScore(2, 1345, 6780, 0));
-        playerScores.Add(new PlayerScore(1, 1, 100, 246));
-        playerScores.Add(new PlayerScore(2, 1, 400, 2456));
-        playerScores.Add(new PlayerScore(3, 2, 700, 256));
-        playerScores.Add(new PlayerScore(4, 2, 50, 246));
+        teamScores.Add(GameManager.getTeamScoreOf(1));
+        teamScores.Add(GameManager.getTeamScoreOf(2));
+        playerScores.Add(GameManager.getPlayerScore(1));
+        playerScores.Add(GameManager.getPlayerScore(2));
+        playerScores.Add(GameManager.getPlayerScore(3));
+        playerScores.Add(GameManager.getPlayerScore(4));
 
         StartCoroutine("Restart");
     }

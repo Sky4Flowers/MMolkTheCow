@@ -434,7 +434,6 @@ public class player : MonoBehaviour
     //TODO: DAMAGE ?
     public void reduceLife(int team)
     {
-        Debug.Log("Should get damaged");
         GameManager.reduceTeamHealth(team);
         teamHealthBar.updateHealthbar();
     }
