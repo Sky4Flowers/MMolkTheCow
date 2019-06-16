@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
     Text player4;
     Color defaultColor1;
     Color defaultColor2;
+    public GameObject countdown;
     InputManager manager;
     // Start is called before the first frame update
     void Start()
@@ -121,6 +122,7 @@ public class MainMenu : MonoBehaviour
     }
     IEnumerator StartGame()
     {
+        countdown.GetComponent<CountDown>().run = true;
         yield return new WaitForSeconds(3);
         GameManager.startGame();
     }
