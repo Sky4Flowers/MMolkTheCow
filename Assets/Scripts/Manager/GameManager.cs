@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
         return instance;
     }
 
+    private GameObject canvas;
+
     private List<BulletWay> bulletFlights;
     private int bulletIdentifier = 0;
     private Vector2[] playerPos;
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject[] players = new GameObject[4];
 
+    private GameObject timerPrefab;
     private CountDown startTimer;
     private bool gameHasFinished = false;
 
@@ -224,8 +227,6 @@ public class GameManager : MonoBehaviour
         instance.StartCoroutine("SceneSwitchDelay");
 
         instance.gameHasFinished = false;
-        instance.startTimer = new CountDown();
-        instance.startTimer.run = true;
         instance.teamHealth1 = 20;
         instance.teamHealth2 = 20;
         instance.teamPasses1 = 0;
@@ -233,6 +234,9 @@ public class GameManager : MonoBehaviour
         instance.teamHits1 = 0;
         instance.teamHits2 = 0;
         SceneManager.LoadScene(1);
+        instance.canvas = GameObject.Find("mainCanvas");
+        instance.startTimer = Instantiate(instance.timerPrefab, instance.canvas.transform).GetComponent<CountDown>();
+        instance.startTimer.run = true;
     }
 
     public static void finishGame()
