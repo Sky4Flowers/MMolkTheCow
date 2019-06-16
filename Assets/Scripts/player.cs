@@ -11,6 +11,8 @@ public class player : MonoBehaviour
     public int teamNumber;
     Rigidbody rb;
     Animator anim;
+    public GameObject selectedWeapon;
+    public GameObject selectedShield;
     public GameObject weapon;
     public GameObject shield;
     Vector3 itemPosition;
@@ -75,12 +77,16 @@ public class player : MonoBehaviour
                 {
                     weapon.SetActive(false);
                     armed = false;
+                    selectedWeapon.SetActive(false);
+                    selectedShield.SetActive(true);
                     shield.SetActive(true);
                 }
                 else if (shield.activeSelf)
                 {
                     shield.SetActive(false);
                     armed = true;
+                    selectedWeapon.SetActive(true);
+                    selectedShield.SetActive(false);
                     weapon.SetActive(true);
                 }
             }
@@ -93,12 +99,16 @@ public class player : MonoBehaviour
                 {
                     weapon.SetActive(false);
                     armed = false;
+                    selectedWeapon.SetActive(false);
+                    selectedShield.SetActive(true);
                     shield.SetActive(true);
                 }
                 else if (shield.activeSelf)
                 {
                     shield.SetActive(false);
                     armed = true;
+                    selectedWeapon.SetActive(true);
+                    selectedShield.SetActive(false);
                     weapon.SetActive(true);
                 }
             }
