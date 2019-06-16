@@ -10,9 +10,11 @@ public class HealthBar : MonoBehaviour
     public int team;
     public float maxSize;
 
-    void OnEnable()
+    void Start()
     {
-        startHealth = GameManager.getTeamHealths()[team];
+        startHealth = 20;
+        health = 20;
+        maxSize = 1;
     }
 
     public void updateHealthbar()
@@ -24,12 +26,12 @@ public class HealthBar : MonoBehaviour
 
     void Resize()
     {
-        if(startHealth == 0)
-        {
-            startHealth = GameManager.getTeamHealths()[team];
-            health = startHealth;
-            maxSize = transform.localScale.y;
-        }
+        //if(startHealth == 0)
+        //{
+        //    startHealth = GameManager.getTeamHealths()[team];
+        //    health = startHealth;
+        //    maxSize = transform.localScale.y;
+        //}
         Debug.Log(maxSize + " " + transform.localScale.y);
         float percentage = (float) health / startHealth;
         Vector2 scale = new Vector2(transform.localScale.x, maxSize * percentage);
