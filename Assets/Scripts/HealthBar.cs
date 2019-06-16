@@ -6,32 +6,33 @@ public class HealthBar : MonoBehaviour
 {
     private int health;
     private int startHealth;
+    [SerializeField]
     public int team;
+    public float maxSize;
 
     void OnEnable()
     {
-        switch (team)
-        {
-            case 1: startHealth = GameManager.getTeamHealths()[0]; break;
-            case 2: startHealth = GameManager.getTeamHealths()[1]; break;
-        }
+        startHealth = GameManager.getTeamHealths()[team];
     }
 
-    public void DecreaseHealthbar()
+    public void updateHealthbar()
     {
-        switch (team)
-        {
-            case 1: health = GameManager.getTeamHealths()[0]; break;
-            case 2: health = GameManager.getTeamHealths()[1]; break;
-        }
+        health = GameManager.getTeamHealths()[team];
+        Debug.Log(health);
         Resize();
     }
 
     void Resize()
     {
-        float percentage = health / startHealth;
-        Vector2 scale = new Vector2(transform.localScale.x, transform.localScale.y - percentage);
+        if(startHealth == 0)
+        {
+            startHealth = GameManager.getTeamHealths()[team];
+            health = startHealth;
+            maxSize = transform.localScale.y;
+        }
+        Debug.Log(maxSize + " " + transform.localScale.y);
+        float percentage = (float) health / startHealth;
+        Vector2 scale = new Vector2(transform.localScale.x, maxSize * percentage);
         transform.localScale = scale;
     }
-
 }

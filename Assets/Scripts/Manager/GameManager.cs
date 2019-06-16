@@ -62,9 +62,6 @@ public class GameManager : MonoBehaviour
     private bool isWaitingToZoom = false;
     private bool shouldZoomIn = false;
 
-    private HealthBar healthBar1;
-    private HealthBar healthBar2;
-
     private GameObject[] players = new GameObject[4];
 
     private CountDown startTimer;
@@ -102,19 +99,19 @@ public class GameManager : MonoBehaviour
         {
             if (shouldZoomIn)
             {
-                if(camSize > camMinSize)
+                if (camSize > camMinSize)
                 {
                     camSize -= Time.deltaTime;
                 }
             }
-            else if(!isWaitingToZoom)
+            else if (!isWaitingToZoom)
             {
                 isWaitingToZoom = true;
                 StartCoroutine(ZoomIn());
             }
         }
 
-        if(teamHealth1 <= 0 || teamHealth2 <= 0)
+        if (teamHealth1 <= 0 || teamHealth2 <= 0)
         {
             finishGame();
         }
@@ -203,28 +200,17 @@ public class GameManager : MonoBehaviour
         instance.teamHealth1 = 20;
         instance.teamHealth2 = 20;
         SceneManager.LoadScene(1);
-        bool firstBar = true;
-        foreach(HealthBar g in Resources.FindObjectsOfTypeAll(typeof(HealthBar)) as HealthBar[])
-        {
-            if (firstBar)
-            {
-                instance.healthBar1 = g;
-                firstBar = false;
-            }
-            else
-            {
-                instance.healthBar2 = g;
-            }
-            g.enabled = true;
-        }
     }
 
     public static void reduceTeamHealth(int teamId)
     {
-        switch (teamId)
+        if (teamId == 0)
         {
-            case 0: instance.healthBar1.DecreaseHealthbar(); instance.teamHealth1 -= 1;  break;
-            case 1: instance.healthBar2.DecreaseHealthbar(); instance.teamHealth1 -= 1; break;
+            instance.teamHealth1--;
+        }
+        else
+        {
+            instance.teamHealth2--;
         }
     }
 
@@ -235,9 +221,7 @@ public class GameManager : MonoBehaviour
 
     public static int[] getTeamHealths()
     {
-        int[] hps = new int[2];
-        hps[0] = instance.teamHealth1;
-        hps[1] = instance.teamHealth2;
+        int[] hps = { instance.teamHealth1, instance.teamHealth2 };
         return hps;
     }
 

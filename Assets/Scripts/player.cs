@@ -23,6 +23,8 @@ public class player : MonoBehaviour
     bool onCooldown;
     bool onCooldown2;
     public GameObject slowAnim;
+    [SerializeField]
+    private HealthBar teamHealthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -443,7 +445,9 @@ public class player : MonoBehaviour
     //TODO: DAMAGE ?
     public void reduceLife(int team)
     {
+        Debug.Log("Should get damaged");
         GameManager.reduceTeamHealth(team);
+        teamHealthBar.updateHealthbar();
     }
 
     //------------------------------------------------------------------------------------------------------------------

@@ -21,7 +21,6 @@ public class playerHitbox : MonoBehaviour
     {
         if (other.gameObject.tag != "shield" && other.gameObject.tag != "Player")
         {
-            Debug.Log("hit");
             if (other.gameObject.layer == 10 && gameObject.layer == 9)
             {
                 if (other.gameObject.GetComponent<Projectile>().charged == true)
@@ -51,7 +50,6 @@ public class playerHitbox : MonoBehaviour
         }
         if (other.gameObject.tag == "slow")
         {
-            Debug.Log("Blargh");
             gameObject.GetComponentInParent<player>().slowEnemies();
             other.gameObject.transform.position = new Vector3(-3, -15, 0);
         }
