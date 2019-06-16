@@ -3367,6 +3367,7 @@ MonoBehaviour:
     type: 3}
   slowAnim: {fileID: 2054499555}
   teamHealthBar: {fileID: 1616570600}
+  teamPartner: {fileID: 2098769253}
 --- !u!212 &1196654666
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3596,6 +3597,7 @@ MonoBehaviour:
     type: 3}
   slowAnim: {fileID: 1007881391}
   teamHealthBar: {fileID: 1411953268}
+  teamPartner: {fileID: 1939904512}
 --- !u!212 &1212638192
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4495,6 +4497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
+  maxSize: 0
 --- !u!1 &1426229148
 GameObject:
   m_ObjectHideFlags: 0
@@ -4891,6 +4894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
+  maxSize: 0
 --- !u!1 &1669165977
 GameObject:
   m_ObjectHideFlags: 0
@@ -5691,6 +5695,7 @@ MonoBehaviour:
     type: 3}
   slowAnim: {fileID: 1233739731}
   teamHealthBar: {fileID: 1411953268}
+  teamPartner: {fileID: 1212638187}
 --- !u!212 &1939904518
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6155,6 +6160,7 @@ MonoBehaviour:
     type: 3}
   slowAnim: {fileID: 253177559}
   teamHealthBar: {fileID: 1616570600}
+  teamPartner: {fileID: 1196654661}
 --- !u!212 &2098769258
 SpriteRenderer:
   m_ObjectHideFlags: 0

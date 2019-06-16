@@ -25,6 +25,7 @@ public class player : MonoBehaviour
     public GameObject slowAnim;
     [SerializeField]
     private HealthBar teamHealthBar;
+    public GameObject teamPartner;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,22 @@ public class player : MonoBehaviour
         armed = false;
         selectedWeapon.SetActive(false);
         selectedShield.SetActive(true);
+        if(playerID == 0 || playerID == 2)
+        {
+            shield.SetActive(false);
+            weapon.SetActive(true);
+            armed = true;
+            selectedWeapon.SetActive(true);
+            selectedShield.SetActive(false);
+        }
+        else if (playerID == 1 || playerID == 3)
+        {
+            shield.SetActive(true);
+            weapon.SetActive(false);
+            armed = false;
+            selectedWeapon.SetActive(false);
+            selectedShield.SetActive(true);
+        }
 
         /*for(int i = 0; i < 4; i++)
         {
@@ -75,46 +92,18 @@ public class player : MonoBehaviour
         //Change Item
         if (playerID == 3)
         {
-            if (Input.GetButtonDown("Change" + controllerID) && !Input.GetButtonDown("Fire" + controllerID))
+            if (Input.GetButtonDown("Change" + controllerID))
             {
-                if (weapon.activeSelf)
-                {
-                    weapon.SetActive(false);
-                    armed = false;
-                    selectedWeapon.SetActive(false);
-                    selectedShield.SetActive(true);
-                    shield.SetActive(true);
-                }
-                else if (shield.activeSelf)
-                {
-                    shield.SetActive(false);
-                    armed = true;
-                    selectedWeapon.SetActive(true);
-                    selectedShield.SetActive(false);
-                    weapon.SetActive(true);
-                }
+                changeItem();
+                teamPartner.GetComponent<player>().changeItem();
             }
         }
         else
         {
-            if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder))
+            if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.Y))
             {
-                if (weapon.activeSelf)
-                {
-                    weapon.SetActive(false);
-                    armed = false;
-                    selectedWeapon.SetActive(false);
-                    selectedShield.SetActive(true);
-                    shield.SetActive(true);
-                }
-                else if (shield.activeSelf)
-                {
-                    shield.SetActive(false);
-                    armed = true;
-                    selectedWeapon.SetActive(true);
-                    selectedShield.SetActive(false);
-                    weapon.SetActive(true);
-                }
+                changeItem();
+                teamPartner.GetComponent<player>().changeItem();
             }
         }
     }
@@ -236,7 +225,7 @@ public class player : MonoBehaviour
         {
             if (playerID == 3)
             {
-                if (Input.GetButtonDown("Fire" + controllerID) && !Input.GetButtonDown("Change" + controllerID))
+                if (Input.GetButtonDown("Fire" + controllerID))
                 {
                     GameObject obj = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
                     if (teamNumber == 1)
@@ -253,7 +242,7 @@ public class player : MonoBehaviour
                     onCooldown = true;
                     StartCoroutine(Cooldown());
                 }
-                if (Input.GetButtonDown("Fire" + controllerID) && Input.GetButtonDown("Change" + controllerID) && onCooldown2 == false)
+                if (Input.GetButtonDown("FireHard" + controllerID) && onCooldown2 == false)
                 {
                     GameObject obj = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
                     if (teamNumber == 1)
@@ -275,18 +264,16 @@ public class player : MonoBehaviour
             }
             else
             {
-                if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && !InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder))
+                if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder))
                 {
                     GameObject obj = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
                     if (teamNumber == 1)
                     {
                         obj.layer = 10;
-                        Debug.Log("Test 1");
                     }
                     else if (teamNumber == 2)
                     {
                         obj.layer = 11;
-                        Debug.Log("Test 2");
                     }
                     Projectile projectile = obj.GetComponent<Projectile>();
                     projectile.setDirection(itemPosition);
@@ -294,7 +281,7 @@ public class player : MonoBehaviour
                     onCooldown = true;
                     StartCoroutine(Cooldown());
                 }
-                if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder) && InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && onCooldown2 == false)
+                if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.LeftShoulder) && onCooldown2 == false)
                 {
                     GameObject obj = (GameObject)Instantiate(specialBullet, weapon.transform.position, Quaternion.identity);
                     if (teamNumber == 1)
@@ -431,7 +418,7 @@ public class player : MonoBehaviour
 
     public void setSlow()
     {
-        playerSpeed = 6;
+        playerSpeed = 4;
         slowAnim.SetActive(true);
         StartCoroutine(Slow());
     }
@@ -448,6 +435,26 @@ public class player : MonoBehaviour
         Debug.Log("Should get damaged");
         GameManager.reduceTeamHealth(team);
         teamHealthBar.updateHealthbar();
+    }
+
+    public void changeItem()
+    {
+        if (weapon.activeSelf)
+        {
+            weapon.SetActive(false);
+            armed = false;
+            selectedWeapon.SetActive(false);
+            selectedShield.SetActive(true);
+            shield.SetActive(true);
+        }
+        else if (shield.activeSelf)
+        {
+            shield.SetActive(false);
+            armed = true;
+            selectedWeapon.SetActive(true);
+            selectedShield.SetActive(false);
+            weapon.SetActive(true);
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------
