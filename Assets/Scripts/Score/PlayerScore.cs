@@ -46,10 +46,10 @@ public class PlayerScore
         string name = "";
         switch (playerId)
         {
-            case 1: name = "ARIS"; break;
-            case 2: name = "BRAX"; break;
-            case 3: name = "COUP"; break;
-            case 4: name = "DAIN"; break;
+            case 1: name = "DAIN"; break;
+            case 2: name = "COUP"; break;
+            case 3: name = "BRAX"; break;
+            case 4: name = "ARIS"; break;
         }
         playerScore.text = "PLAYER #" + playerId + ":" + "\nHealth:" + "\nFarthest Shot:";
         playerScoreValue.text = name + "\n" + health + "\n" + longestShot;

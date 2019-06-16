@@ -12,8 +12,8 @@ public class HealthBar : MonoBehaviour
 
     void Start()
     {
-        startHealth = 10;
-        health = 10;
+        startHealth = 5;
+        health = 5;
         maxSize = 1;
     }
 

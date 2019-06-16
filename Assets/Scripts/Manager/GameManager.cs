@@ -54,8 +54,8 @@ public class GameManager : MonoBehaviour
     private PlayerStat bestAccuracy = new PlayerStat();
     private PlayerStat mostHealthDrain = new PlayerStat();
     private PlayerStat mostHealthLeft = new PlayerStat();
-    private int teamHealth1 = 10;
-    private int teamHealth2 = 10;
+    private int teamHealth1 = 5;
+    private int teamHealth2 = 5;
     private int teamPasses1 = 0;
     private int teamPasses2 = 0;
     private int teamHits1 = 0;
@@ -229,8 +229,8 @@ public class GameManager : MonoBehaviour
         instance.StartCoroutine("SceneSwitchDelay");
 
         instance.gameHasFinished = false;
-        instance.teamHealth1 = 20;
-        instance.teamHealth2 = 20;
+        instance.teamHealth1 = 5;
+        instance.teamHealth2 = 5;
         instance.teamPasses1 = 0;
         instance.teamPasses2 = 0;
         instance.teamHits1 = 0;
