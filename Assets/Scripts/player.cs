@@ -34,7 +34,9 @@ public class player : MonoBehaviour
         weapon.transform.position = transform.position + itemPosition;
         shield.transform.position = transform.position + itemPosition;
         weapon.SetActive(false);
-        armed = weapon.activeSelf;
+        armed = false;
+        selectedWeapon.SetActive(false);
+        selectedShield.SetActive(true);
 
         /*for(int i = 0; i < 4; i++)
         {
