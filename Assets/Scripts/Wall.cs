@@ -6,6 +6,8 @@ public class Wall : MonoBehaviour
 {
     private Collider collider;
 
+    public bool special;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,11 @@ public class Wall : MonoBehaviour
                 {
                     Destroy(other.gameObject);
                 }
+            }
+            if(special = true)
+            {
+                Vector3 temp = other.gameObject.GetComponent<Projectile>().getDirection();
+                other.gameObject.GetComponent<Projectile>().setDirection(temp * -1);
             }
         }
     }
