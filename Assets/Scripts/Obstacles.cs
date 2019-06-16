@@ -37,7 +37,6 @@ public class Obstacles : MonoBehaviour
         yield return new WaitForSeconds(timeInS);
         group1.SetActive(true);
         toggle = true;
-
     }
 
 }
