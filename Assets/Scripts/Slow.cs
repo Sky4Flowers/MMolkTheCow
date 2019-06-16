@@ -19,7 +19,7 @@ public class Slow : MonoBehaviour
 
     IEnumerator SlowSpawn()
     {
-        int time = Random.Range(3, 5);
+        int time = Random.Range(20, 40);
         yield return new WaitForSeconds(time);
         int pos = Random.Range(0, 3);
         switch (pos)
