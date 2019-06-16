@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     private int teamHealth2 = 20;
 
     private CamBehaviour mainCam;
+    private bool hasMainCam = true;
     private float camSize = 10;
     private int camMaxSize = 20;
     private int camMinSize = 10;
@@ -65,6 +66,8 @@ public class GameManager : MonoBehaviour
     private HealthBar healthBar2;
 
     private GameObject[] players = new GameObject[4];
+
+    private CountDown startTimer;
 
     void Start()
     {
@@ -78,6 +81,7 @@ public class GameManager : MonoBehaviour
             mainCam = Camera.main.GetComponent<CamBehaviour>();
             if (!mainCam)
             {
+                hasMainCam = false;
                 Debug.LogError("No moveable mainCamera found. Please add camera with CamBehaviour as main");
             }
         }
@@ -85,7 +89,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (mainCam.shouldLookAtInterest())
+        if (hasMainCam && mainCam.shouldLookAtInterest())
         {
             shouldZoomIn = false;
             if (camSize < camMaxSize)
@@ -114,6 +118,11 @@ public class GameManager : MonoBehaviour
         {
             finishGame();
         }
+    }
+
+    public bool isTimerActive()
+    {
+        return !startTimer || !startTimer.isActiveAndEnabled;
     }
 
     //---------------------------------------------------------------------------------------------------------------------
@@ -189,7 +198,8 @@ public class GameManager : MonoBehaviour
 
     public static void startGame()
     {
-        //SpawnBehaviour.spawnPlayers(instance.players.Length);
+        instance.startTimer = new CountDown();
+        instance.startTimer.run = true;
         instance.teamHealth1 = 20;
         instance.teamHealth2 = 20;
         SceneManager.LoadScene(1);

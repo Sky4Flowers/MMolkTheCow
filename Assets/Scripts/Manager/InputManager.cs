@@ -5,13 +5,12 @@ using XInputDotNetPure;
 
 public class InputManager : MonoBehaviour
 {
-
     public enum ButtonType { X, Y, A, B, Start, Back, LeftShoulder, RightShoulder };
     public static InputManager Instance;
-    bool[] playerIndexSet = { false, false, false, false };
-    PlayerIndex playerIndex;
-    GamePadState[] state = new GamePadState[4];
-    GamePadState[] prevState = new GamePadState[4];
+    private bool[] playerIndexSet = { false, false, false, false };
+    private PlayerIndex playerIndex;
+    private GamePadState[] state = new GamePadState[4];
+    private GamePadState[] prevState = new GamePadState[4];
     public int playerNum;
 
     void Awake()
@@ -31,7 +30,6 @@ public class InputManager : MonoBehaviour
     {
         // Initialization
         // Find all controllers
-
         for (int i = 0; i < playerNum; ++i)
         {
             PlayerIndex testPlayerIndex = (PlayerIndex)i;
@@ -42,7 +40,6 @@ public class InputManager : MonoBehaviour
                 playerIndexSet[i] = true;
             }
         }
-
     }
 
     void Update()
@@ -57,16 +54,31 @@ public class InputManager : MonoBehaviour
 
     public Vector2 getLeftStick(int player)//Getting values from left stick
     {
+        if (checkForTimerToWait())
+        {
+            return Vector2.zero;
+        }
+
         return new Vector2(state[player].ThumbSticks.Left.X, state[player].ThumbSticks.Left.Y);
     }
 
     public Vector2 getRightStick(int player)//Getting values from right stick
     {
+        if (checkForTimerToWait())
+        {
+            return Vector2.zero;
+        }
+
         return new Vector2(state[player].ThumbSticks.Right.X, state[player].ThumbSticks.Right.Y);
     }
 
     public bool getButtonDown(int player, ButtonType button)
     {
+        if (checkForTimerToWait())
+        {
+            return false;
+        }
+
         switch (button)
         {
             case ButtonType.A:
@@ -94,6 +106,11 @@ public class InputManager : MonoBehaviour
 
     public bool getButton(int player, ButtonType button)
     {
+        if (checkForTimerToWait())
+        {
+            return false;
+        }
+
         switch (button)
         {
             case ButtonType.A:
@@ -119,4 +136,8 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    private bool checkForTimerToWait()
+    {
+        return GameManager.getInstance().isTimerActive();
+    }
 }

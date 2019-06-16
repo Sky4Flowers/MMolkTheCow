@@ -127,7 +127,6 @@ public class player : MonoBehaviour
             amtToMove = InputManager.Instance.getLeftStick(playerID).x * playerSpeed / 2 * Time.deltaTime;
             amtToMove2 = InputManager.Instance.getLeftStick(playerID).y * playerSpeed / 2 * Time.deltaTime;
         }
-
         if (movable)
         {
             if (amtToMove > 0 && amtToMove2 > 0) //Das Mathf.Abs könnte evtl für Analog-Sticks wichtig sein
@@ -142,10 +141,7 @@ public class player : MonoBehaviour
                     anim.SetInteger("State", 3);
                     lastKey = 3;
                 }
-                
-                
             }
-
             if (amtToMove < 0 && amtToMove2 > 0)
             {
                 if (armed == true)
@@ -156,11 +152,8 @@ public class player : MonoBehaviour
                 else
                 {
                     anim.SetInteger("State", 2);
-
                     lastKey = 2;
                 }
-
-
             }
             if (amtToMove < 0 && amtToMove2 < 0)
             {
@@ -174,8 +167,6 @@ public class player : MonoBehaviour
                     anim.SetInteger("State", 1);
                     lastKey = 1;
                 }
-                
-                
             }
             if (amtToMove > 0 && amtToMove2 > 0)
             {
@@ -189,8 +180,6 @@ public class player : MonoBehaviour
                     anim.SetInteger("State", 4);
                     lastKey = 4;
                 }
-                
-                
             }
 
             //transform.Translate(Vector2.right * amtToMove);
@@ -213,7 +202,7 @@ public class player : MonoBehaviour
             if (Mathf.Abs(Input.GetAxis("HorizontalRight" + controllerID)) + Mathf.Abs(Input.GetAxis("VerticalRight" + controllerID)) >= 0.1f)
             {
                 itemPosition = new Vector3(Input.GetAxis("HorizontalRight" + controllerID), Input.GetAxis("VerticalRight" + controllerID), 0.0f);
-                itemPosition = Vector3.Normalize(itemPosition) * 1;
+                itemPosition = Vector3.Normalize(itemPosition);
                 weapon.transform.position = transform.position + itemPosition;
                 shield.transform.position = transform.position + itemPosition;
             }
@@ -223,7 +212,7 @@ public class player : MonoBehaviour
             if (Mathf.Abs(InputManager.Instance.getRightStick(playerID).x) + Mathf.Abs(InputManager.Instance.getRightStick(playerID).y) >= 0.1f)
             {
                 itemPosition = new Vector3(InputManager.Instance.getRightStick(playerID).x, InputManager.Instance.getRightStick(playerID).y, 0.0f);
-                itemPosition = Vector3.Normalize(itemPosition) * 1;
+                itemPosition = Vector3.Normalize(itemPosition);
                 weapon.transform.position = transform.position + itemPosition;
                 shield.transform.position = transform.position + itemPosition;
             }
