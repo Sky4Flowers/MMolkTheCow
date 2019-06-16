@@ -62,7 +62,7 @@ public class player : MonoBehaviour
             Debug.Log(Input.GetJoystickNames()[i]);
         }*/
         //Suche nach dem manuell einzustellenden Controller, falls Probleme mit dem Input Manager auftreten
-        if (playerID == 3)
+        /*if (playerID == 3)
         {
             int controllerNum = Input.GetJoystickNames().Length;
             for (int i = 0; i < controllerNum; i++)
@@ -75,7 +75,7 @@ public class player : MonoBehaviour
                     controllerID = i + 1;
                 }
             }
-        }
+        }*/
         //Setzen des Layers je nach Teamnummer
         if (teamNumber == 1)
         {
@@ -91,7 +91,7 @@ public class player : MonoBehaviour
     void Update()
     {
         //Change Item
-        if (playerID == 3)
+        /*if (playerID == 3)
         {
             if (Input.GetButtonDown("Change" + controllerID))
             {
@@ -100,13 +100,13 @@ public class player : MonoBehaviour
             }
         }
         else
-        {
+        {*/
             if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.Y))
             {
                 changeItem();
                 teamPartner.GetComponent<player>().changeItem();
             }
-        }
+        //}
     }
 
     void FixedUpdate()
@@ -116,7 +116,7 @@ public class player : MonoBehaviour
         float amtToMove = 0.0f;
         float amtToMove2 = 0.0f;
         //Ggf manuelle Anpassung an einen Controller, der nicht mit dem Input Manager arbeitet
-        if (playerID == 3)
+        /*if (playerID == 3)
         {
             amtToMove = Input.GetAxis("Horizontal" + controllerID) * playerSpeed / 2 * Time.deltaTime;
             amtToMove2 = Input.GetAxis("Vertical" + controllerID) * playerSpeed / 2 * Time.deltaTime;
@@ -124,13 +124,13 @@ public class player : MonoBehaviour
             Debug.Log(Input.GetAxis("Vertical" + controllerID));
             Debug.Log("2: " + Input.GetAxis("Horizontal2"));
             Debug.Log("3: " + Input.GetAxis("Horizontal3"));
-            Debug.Log("4: " + Input.GetAxis("Horizontal4"));*/
+            Debug.Log("4: " + Input.GetAxis("Horizontal4"));
         }
         else
-        {
+        {*/
             amtToMove = InputManager.Instance.getLeftStick(playerID).x * playerSpeed / 2 * Time.deltaTime;
             amtToMove2 = InputManager.Instance.getLeftStick(playerID).y * playerSpeed / 2 * Time.deltaTime;
-        }
+        //}
         if (movable)
         {
             if (amtToMove > 0 && amtToMove2 > 0) //Das Mathf.Abs könnte evtl für Analog-Sticks wichtig sein
@@ -201,7 +201,7 @@ public class player : MonoBehaviour
             //}
         }
         //Positionieren des Items, abhängig von der Ausrichtung des rechten Sticks
-        if (playerID == 3)
+        /*if (playerID == 3)
         {
             if (Mathf.Abs(Input.GetAxis("HorizontalRight" + controllerID)) + Mathf.Abs(Input.GetAxis("VerticalRight" + controllerID)) >= 0.1f)
             {
@@ -212,7 +212,7 @@ public class player : MonoBehaviour
             }
         }
         else
-        {
+        {*/
             if (Mathf.Abs(InputManager.Instance.getRightStick(playerID).x) + Mathf.Abs(InputManager.Instance.getRightStick(playerID).y) >= 0.1f)
             {
                 itemPosition = new Vector3(InputManager.Instance.getRightStick(playerID).x, InputManager.Instance.getRightStick(playerID).y, 0.0f);
@@ -220,11 +220,11 @@ public class player : MonoBehaviour
                 weapon.transform.position = transform.position + itemPosition;
                 shield.transform.position = transform.position + itemPosition;
             }
-        }
+        //}
 
         if (armed && onCooldown == false)//Überprüfung ob Waffe ausgerüstet ist und geschossen werden kann
         {
-            if (playerID == 3)
+            /*if (playerID == 3)
             {
                 if (Input.GetButtonDown("Fire" + controllerID))
                 {
@@ -264,7 +264,7 @@ public class player : MonoBehaviour
                 }
             }
             else
-            {
+            {*/
                 if (InputManager.Instance.getButtonDown(playerID, InputManager.ButtonType.RightShoulder))
                 {
                     GameObject obj = (GameObject)Instantiate(bullet, weapon.transform.position, Quaternion.identity);
@@ -301,7 +301,7 @@ public class player : MonoBehaviour
                     StartCoroutine(Cooldown());
                     StartCoroutine(SpecialCooldown());
                 }
-            }
+            //}
         }
 
         if (amtToMove == 0 && amtToMove2 == 0)
