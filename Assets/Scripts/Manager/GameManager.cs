@@ -54,6 +54,10 @@ public class GameManager : MonoBehaviour
     private PlayerStat mostHealthLeft = new PlayerStat();
     private int teamHealth1 = 20;
     private int teamHealth2 = 20;
+    private int teamPasses1 = 0;
+    private int teamPasses2 = 0;
+    private int teamHits1 = 0;
+    private int teamHits2 = 0;
 
     private CamBehaviour mainCam;
     private bool hasMainCam = true;
@@ -224,6 +228,10 @@ public class GameManager : MonoBehaviour
         instance.startTimer.run = true;
         instance.teamHealth1 = 20;
         instance.teamHealth2 = 20;
+        instance.teamPasses1 = 0;
+        instance.teamPasses2 = 0;
+        instance.teamHits1 = 0;
+        instance.teamHits2 = 0;
         SceneManager.LoadScene(1);
     }
 
@@ -237,7 +245,7 @@ public class GameManager : MonoBehaviour
         //TODO
         //Get Playerstats
         //calculate best badgestats
-        //SceneManager.LoadScene(2);
+        SceneManager.LoadScene(2);
     }
 
     public static void goBackToMain()
@@ -258,11 +266,37 @@ public class GameManager : MonoBehaviour
     {
         if (teamId == 0)
         {
+            instance.teamHits2++;
             instance.teamHealth1--;
         }
         else
         {
+            instance.teamHits1++;
             instance.teamHealth2--;
+        }
+    }
+
+    public void onPlayerHit(int hittedTeam) // 0-1
+    {
+        if(hittedTeam == 0)
+        {
+            teamHits2++;
+        }
+        else
+        {
+            teamHits1++;
+        }
+    }
+
+    public void onPlayerPass(int passingTeam) // 0-1
+    {
+        if (passingTeam == 0)
+        {
+            teamPasses1++;
+        }
+        else
+        {
+            teamPasses2++;
         }
     }
 
@@ -277,10 +311,40 @@ public class GameManager : MonoBehaviour
         return hps;
     }
 
-    public static int getWinningTeam()
+    public static int getWinningTeam() // 1-2
     {
         return instance.teamHealth1 > instance.teamHealth2 ? 1 : 2;
     }
+
+    public static TeamScore getTeamScoreOf(int teamID) // 1-2
+    {
+        if(teamID == 1)
+        {
+            return new TeamScore(1, calculateTeamScore(1), instance.teamHits1, instance.teamPasses1);
+        }
+        else
+        {
+            return new TeamScore(2, calculateTeamScore(2), instance.teamHits2, instance.teamPasses2);
+        }
+    }
+
+    private static int calculateTeamScore(int teamId) // 1-2
+    {
+        if (teamId == 1)
+        {
+            return getWinningTeam() == 1 ? 15 : instance.teamHits1 + instance.teamPasses1 * 2;
+        }
+        else
+        {
+            return getWinningTeam() == 2 ? 15 : instance.teamHits2 + instance.teamPasses2 * 2;
+        }
+    }
+
+    public static PlayerScore getPlayerScore(int id) // 1-4
+    {
+        return new PlayerScore(id, id / 2, 0, 0); //TODO
+    }
+
     //---------------------------------------------------------------------------------------------------------------------
     //Coroutines
     //---------------------------------------------------------------------------------------------------------------------
