@@ -26,12 +26,21 @@ public class shield : MonoBehaviour
             Debug.Log("pre");
             if ((other.gameObject.layer == 10 && gameObject.layer == 12) || (other.gameObject.layer == 11 && gameObject.layer == 13))
             {
+                if(other.gameObject.layer == 10)
+                {
+                    GameManager.getInstance().onPlayerPass(0);
+                }
+                else
+                {
+                    GameManager.getInstance().onPlayerPass(1);
+                }
                 other.GetComponent<Projectile>().onCollisionWith(collider);
                 other.gameObject.GetComponent<Projectile>().charged = true;
                 Debug.Log("10, 12");
             }
             else if (other.gameObject.layer == 10 && gameObject.layer == 13)
             {
+                GameManager.getInstance().onPlayerPass(1);
                 other.GetComponent<Projectile>().onCollisionWith(collider);
                 other.gameObject.layer = 11;
                 other.gameObject.GetComponent<Projectile>().charged = true;
@@ -39,6 +48,7 @@ public class shield : MonoBehaviour
             }
             else if (other.gameObject.layer == 11 && gameObject.layer == 12)
             {
+                GameManager.getInstance().onPlayerPass(0);
                 other.GetComponent<Projectile>().onCollisionWith(collider);
                 other.gameObject.layer = 10;
                 other.gameObject.GetComponent<Projectile>().charged = true;

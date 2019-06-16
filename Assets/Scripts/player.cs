@@ -403,6 +403,7 @@ public class player : MonoBehaviour
         transform.position = newpos;
     }
 
+
     public void slowEnemies()
     {
         if (teamNumber == 1)
@@ -433,7 +434,6 @@ public class player : MonoBehaviour
     //TODO: DAMAGE ?
     public void reduceLife(int team)
     {
-        Debug.Log("Should get damaged");
         GameManager.reduceTeamHealth(team);
         teamHealthBar.updateHealthbar();
     }
