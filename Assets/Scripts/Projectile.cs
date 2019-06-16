@@ -8,6 +8,10 @@ public class Projectile : MonoBehaviour
     public int bounce;
 
     public int sourceId;
+    public Sprite uncharged;
+    public Sprite charged1;
+    public Sprite charged2;
+    private SpriteRenderer spriteR;
 
     private Vector3 direction;
     // Start is called before the first frame update
@@ -15,12 +19,23 @@ public class Projectile : MonoBehaviour
     {
         charged = false;
         bounce = 0;
+        spriteR = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(direction * Time.deltaTime * 4);
+        if (charged)
+        {
+            if(gameObject.layer == 10)
+            {
+                spriteR.sprite = charged1;
+            }else if(gameObject.layer == 11)
+            {
+                spriteR.sprite = charged2;
+            }
+        }
     }
 
     public void setDirection(Vector3 input)
