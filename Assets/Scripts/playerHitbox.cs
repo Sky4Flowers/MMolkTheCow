@@ -25,7 +25,7 @@ public class playerHitbox : MonoBehaviour
             {
                 if (other.gameObject.GetComponent<Projectile>().charged == true)
                 {
-                    gameObject.GetComponentInParent<player>().reduceLife(2);
+                    gameObject.GetComponentInParent<player>().reduceLife(1);
                 }
 
                 Destroy(other.gameObject);
@@ -34,7 +34,7 @@ public class playerHitbox : MonoBehaviour
             {
                 if(other.gameObject.GetComponent<Projectile>().charged == true)
                 {
-                        gameObject.GetComponentInParent<player>().reduceLife(1);
+                        gameObject.GetComponentInParent<player>().reduceLife(0);
                 }
                 
                 Destroy(other.gameObject);
