@@ -54,8 +54,8 @@ public class GameManager : MonoBehaviour
     private PlayerStat bestAccuracy = new PlayerStat();
     private PlayerStat mostHealthDrain = new PlayerStat();
     private PlayerStat mostHealthLeft = new PlayerStat();
-    private int teamHealth1 = 20;
-    private int teamHealth2 = 20;
+    private int teamHealth1 = 10;
+    private int teamHealth2 = 10;
     private int teamPasses1 = 0;
     private int teamPasses2 = 0;
     private int teamHits1 = 0;
@@ -90,6 +90,8 @@ public class GameManager : MonoBehaviour
                 hasMainCam = false;
                 Debug.LogError("No moveable mainCamera found. Please add camera with CamBehaviour as main");
             }
+
+            GetComponent<AudioSource>().Play();
         }
     }
 

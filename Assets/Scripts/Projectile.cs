@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(direction * Time.deltaTime * 4);
+        transform.Translate(direction * Time.deltaTime * 6);
         if (charged)
         {
             if(gameObject.layer == 10)
