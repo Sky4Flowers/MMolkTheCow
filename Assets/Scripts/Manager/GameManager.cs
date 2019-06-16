@@ -115,6 +115,21 @@ public class GameManager : MonoBehaviour
         {
             finishGame();
         }
+
+        //Presentation-Shortcuts
+
+        if (Input.GetKeyDown(KeyCode.Q) == true)
+        {
+            SceneManager.LoadScene(0);
+        }
+        if (Input.GetKeyDown(KeyCode.W) == true)
+        {
+            SceneManager.LoadScene(1);
+        }
+        if (Input.GetKeyDown(KeyCode.E) == true)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 
     public bool isTimerActive()
