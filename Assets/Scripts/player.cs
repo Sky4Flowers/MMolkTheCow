@@ -67,6 +67,7 @@ public class player : MonoBehaviour
             int controllerNum = Input.GetJoystickNames().Length;
             for (int i = 0; i < controllerNum; i++)
             {
+                Debug.Log(Input.GetJoystickNames()[i] + i);
                 if (Input.GetJoystickNames()[i].Equals("Wireless Controller"))
                 {
                     Debug.Log("Joystick found");
